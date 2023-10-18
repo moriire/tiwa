@@ -2,9 +2,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext as _
 from django.utils import timezone
-from .manager import UserManager
+from .manager import CustomUserManager
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
 import uuid
+
+#User = get_user_model()
 
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False) 
@@ -14,7 +17,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
-    objects = UserManager()
+    objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
 
@@ -32,12 +35,14 @@ class User(AbstractBaseUser, PermissionsMixin):
  
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import UserDetailsSerializer
-
-class CustomRegisterSerializer(RegisterSerializer):
-    pk = serializers.CharField(read_only=True)
-    #first_name = serializers.CharField(required=True)#, write_only=True)
-    #last_name = serializers.CharField(required=True)
+from allauth.account import app_settings as allauth_account_settings
     
+class CustomRegisterSerializer(RegisterSerializer):
+    email = serializers.EmailField(required=allauth_account_settings.EMAIL_REQUIRED)
+    class Meta:
+        model = User
+        fields = ('email', 'password1', 'password2')
+
 class UserDetailsSerializer(UserDetailsSerializer):
     class Meta:   
         model = User

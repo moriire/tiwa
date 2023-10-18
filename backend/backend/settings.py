@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "user",
     "allauth",
     "allauth.account",
     "rest_framework",
@@ -41,7 +42,7 @@ INSTALLED_APPS = [
     "dj_rest_auth",
     "upload",
     "order",
-    "user"
+    
 ]
 
 MIDDLEWARE = [
@@ -134,7 +135,7 @@ AUTH_USER_MODEL = "user.User"
 ACCOUNT_EMAIL_VERIFICATION = "none"
 USER_MODEL_USERNAME_FIELD = "email"
 ACCOUNT_USER_MODEL_USERNAME_FIELD  = "email"
-USERNAME_REQUIRED = not False
+USERNAME_REQUIRED = False
 EMAIL_REQUIRED = True
 AUTHENTICATION_METHOD = "email"
 UNIQUE_EMAIL = True
@@ -144,3 +145,45 @@ REST_USE_JWT = True
 AUTHENTICATION_CLASSES = (
     "dj_rest_auth.authentication.AllAuthJWTAuthentication",
 )
+
+
+REST_AUTH = {
+    'LOGIN_SERIALIZER': 'dj_rest_auth.serializers.LoginSerializer',
+    'TOKEN_SERIALIZER': 'dj_rest_auth.serializers.TokenSerializer',
+    'JWT_SERIALIZER': 'dj_rest_auth.serializers.JWTSerializer',
+    'JWT_SERIALIZER_WITH_EXPIRATION': 'dj_rest_auth.serializers.JWTSerializerWithExpiration',
+    'JWT_TOKEN_CLAIMS_SERIALIZER': 'rest_framework_simplejwt.serializers.TokenObtainPairSerializer',
+    'USER_DETAILS_SERIALIZER': 'dj_rest_auth.serializers.UserDetailsSerializer',
+    'PASSWORD_RESET_SERIALIZER': 'dj_rest_auth.serializers.PasswordResetSerializer',
+    'PASSWORD_RESET_CONFIRM_SERIALIZER': 'dj_rest_auth.serializers.PasswordResetConfirmSerializer',
+    'PASSWORD_CHANGE_SERIALIZER': 'dj_rest_auth.serializers.PasswordChangeSerializer',
+
+    'REGISTER_SERIALIZER': 'user.models.CustomRegisterSerializer',
+
+    'REGISTER_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+
+    'TOKEN_MODEL': 'rest_framework.authtoken.models.Token',
+    'TOKEN_CREATOR': 'dj_rest_auth.utils.default_create_token',
+
+    'PASSWORD_RESET_USE_SITES_DOMAIN': False,
+    'OLD_PASSWORD_FIELD_ENABLED': False,
+    'LOGOUT_ON_PASSWORD_CHANGE': False,
+    'SESSION_LOGIN': True,
+    'USE_JWT': False,
+
+    'JWT_AUTH_COOKIE': None,
+    'JWT_AUTH_REFRESH_COOKIE': None,
+    'JWT_AUTH_REFRESH_COOKIE_PATH': '/',
+    'JWT_AUTH_SECURE': False,
+    'JWT_AUTH_HTTPONLY': True,
+    'JWT_AUTH_SAMESITE': 'Lax',
+    'JWT_AUTH_RETURN_EXPIRATION': False,
+    'JWT_AUTH_COOKIE_USE_CSRF': False,
+    'JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED': False,
+}
+
+REST_AUTH_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'user.models.CustomRegisterSerializer',
+
+#    'USER_DETAILS_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
+}
