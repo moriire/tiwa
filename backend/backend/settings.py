@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-nta1d6t@-wedz991p+wj3(x7a6(md8hk_l5%dqf9c@58vw2hbl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -34,6 +34,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "allauth",
+    "allauth.account",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "dj_rest_auth",
     "upload",
     "order",
     "user"
@@ -47,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware"
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -123,3 +129,18 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = "user.User"
+ACCOUNT_EMAIL_VERIFICATION = "none"
+USER_MODEL_USERNAME_FIELD = "email"
+ACCOUNT_USER_MODEL_USERNAME_FIELD  = "email"
+USERNAME_REQUIRED = not False
+EMAIL_REQUIRED = True
+AUTHENTICATION_METHOD = "email"
+UNIQUE_EMAIL = True
+CONFIRM_EMAIL_ON_GET = True
+LOGIN_ON_EMAIL_CONFIRMATION = True
+REST_USE_JWT = True
+AUTHENTICATION_CLASSES = (
+    "dj_rest_auth.authentication.AllAuthJWTAuthentication",
+)
