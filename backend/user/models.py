@@ -4,10 +4,7 @@ from django.utils.translation import gettext as _
 from django.utils import timezone
 from .manager import CustomUserManager
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
 import uuid
-
-#User = get_user_model()
 
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False) 

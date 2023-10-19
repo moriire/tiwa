@@ -1,85 +1,99 @@
-<script setup>
+<script >
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+export default {
+  data() {
+    return {
+      type: 0,
+      title: 'Tiwa',
+      openDrawer: false,
+      items: [
+        {
+          text: 'Favorites',
+          icon: 'favorite',
+          url: '/'
+        },
+        {
+          text: 'Music',
+          icon: 'music_note',
+          url: '/about'
+        },
+        {
+          text: 'Places',
+          icon: 'place'
+        },
+        {
+          text: 'News',
+          icon: 'fiber_new'
+        }
+      ],
+      active: 1
+    };
+  },
+  methods: {
+    onChange(active) {
+      console.log(active);
+    }
+  }
+};
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <div class="page-top-app-bar">
+  <ui-top-app-bar
+    content-selector="#content-main"
+    :type="type"
+    :title="title"
+    @nav="openDrawer = true"
+  >
+    <template #toolbar="{ toolbarItemClass }">
+      <ui-icon-button
+        :class="toolbarItemClass"
+        icon="file_download"
+      ></ui-icon-button>
+      <ui-icon-button :class="toolbarItemClass" icon="print"></ui-icon-button>
+      <ui-icon-button
+        :class="toolbarItemClass"
+        icon="bookmark"
+      ></ui-icon-button>
+    </template>
+  </ui-top-app-bar>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <ui-drawer v-model="openDrawer" type="modal">
+    <ui-drawer-header>
+      <ui-drawer-title>Tiwa-Our Culture</ui-drawer-title>
+    </ui-drawer-header>
+    <ui-drawer-content>
+      <ui-list>
+        <ui-item active>
+          <ui-item-first-content>
+            <ui-icon>arrow_back</ui-icon>
+          </ui-item-first-content>
+          <ui-item-text-content>Back</ui-item-text-content>
+        </ui-item>
+        <ui-list-divider></ui-list-divider>
+      </ui-list>
+    </ui-drawer-content>
+  </ui-drawer>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+  <div id="content-main">
+    <div class="container">
+      <!-- Content -->
+
+      <ui-navigation-bar content-selector=".container" stacked>
+        <ui-tabs
+          v-model="active"
+          type="textWithIcon"
+          :items="items"
+          stacked
+          @update:model-value="onChange"
+        ></ui-tabs>
+      </ui-navigation-bar>
     </div>
-  </header>
+    <RouterView />
+  </div>
+</div>
 
-  <RouterView />
 </template>
-
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>
