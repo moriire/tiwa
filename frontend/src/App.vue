@@ -9,22 +9,26 @@ export default {
       openDrawer: false,
       items: [
         {
-          text: 'Favorites',
+          text: 'Home',
           icon: 'favorite',
-          url: '/'
+          url: '/',
+          name: "home"
         },
         {
           text: 'Music',
           icon: 'music_note',
-          url: '/about'
+          url: '/about',
+          name: "login"
         },
         {
           text: 'Places',
-          icon: 'place'
+          icon: 'place',
+          name: "home"
         },
         {
           text: 'News',
-          icon: 'fiber_new'
+          icon: 'fiber_new',
+          name: "register"
         }
       ],
       active: 1
@@ -33,6 +37,13 @@ export default {
   methods: {
     onChange(active) {
       console.log(active);
+      this.$router.push({
+  name: this.items[active].name,
+  // preserve current path and remove the first char to avoid the target URL starting with `//`
+  //params: { pathMatch: this.$route.path.substring(1).split('/') },
+  // preserve existing query and hash if any
+  //query: this.$route.query,
+})
     }
   }
 };

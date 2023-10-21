@@ -1,62 +1,109 @@
-<script setup>
-import { ref } from "vue";
-import { VueperSlides, VueperSlide } from "vueperslides"
-const labelsType = ref(1);
-const slides = [
-  {
-    title: 'Aso Oke',
-    content: 'This video is autoplayed, played in loop, has no controls and is not reacting to user interactions.',
-    image: "/src/assets/photos/sample.jpg",
-    
-  },
-  {
-    title: 'Blossoming flower',
-    content: 'This video is played once, has controls and is reacting to user interactions.',
-    image: "/src/assets/photos/sample.jpg",
-    
-  }
-]
-</script>
-
 <template>
- <vueper-slides autoplay>
-  <vueper-slide v-for="(slide, i) in slides"
-    :key="id"
-    :title="slide.title"
-    :content="slide.content"
-    />
-  <template #pause>
-    <i class="icon pause_circle_outline"></i>
-  </template>
-</vueper-slides>
-  <ui-image-list :text-protection="labelsType === 2">
-  <ui-image-item
-    v-for="i in 15"
-    :key="i"
-    bg-image="/src/assets/photos/sample.jpg"
-    style="width: 230px; margin: 8px;"
+  <swiper
+    :effect="'coverflow'"
+    :grabCursor="true"
+    :centeredSlides="true"
+    :slidesPerView="'auto'"
+    :coverflowEffect="{
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true,
+    }"
+    :pagination="true"
+    :modules="modules"
+    class="mySwiper"
   >
-    <ui-image-text v-if="labelsType">Text label</ui-image-text>
-  </ui-image-item>
-</ui-image-list>
-
+    <swiper-slide
+      ><img
+        src="https://swiperjs.com/demos/images/nature-1.jpg" /></swiper-slide
+    ><swiper-slide
+      ><img
+        src="https://swiperjs.com/demos/images/nature-2.jpg" /></swiper-slide
+    ><swiper-slide
+      ><img
+        src="https://swiperjs.com/demos/images/nature-3.jpg" /></swiper-slide
+    ><swiper-slide
+      ><img
+        src="https://swiperjs.com/demos/images/nature-4.jpg" /></swiper-slide
+    ><swiper-slide
+      ><img
+        src="https://swiperjs.com/demos/images/nature-5.jpg" /></swiper-slide
+    ><swiper-slide
+      ><img
+        src="https://swiperjs.com/demos/images/nature-6.jpg" /></swiper-slide
+    ><swiper-slide
+      ><img
+        src="https://swiperjs.com/demos/images/nature-7.jpg" /></swiper-slide
+    ><swiper-slide
+      ><img
+        src="https://swiperjs.com/demos/images/nature-8.jpg" /></swiper-slide
+    ><swiper-slide
+      ><img src="https://swiperjs.com/demos/images/nature-9.jpg"
+    /></swiper-slide>
+  </swiper>
 </template>
-<style scoped>
-.vueperslides__bullet .default {
-  background-color: rgba(0, 0, 0, 0.3);
-  border: none;
-  box-shadow: none;
-  transition: 0.3s;
-  width: 16px;
-  height: 16px;
+<script>
+  // Import Swiper Vue.js components
+  import { Swiper, SwiperSlide } from 'swiper/vue';
+
+  // Import Swiper styles
+  import 'swiper/css';
+
+  import 'swiper/css/effect-coverflow';
+  import 'swiper/css/pagination';
+
+  //import './style.css';
+
+  // import required modules
+  import { EffectCoverflow, Pagination } from 'swiper/modules';
+
+  export default {
+    components: {
+      Swiper,
+      SwiperSlide,
+    },
+    setup() {
+      return {
+        modules: [EffectCoverflow, Pagination],
+      };
+    },
+  };
+</script>
+<style>
+#app { height: 100% }
+html,
+body {
+  position: relative;
+  height: 100%;
 }
 
-.vueperslides__bullet--active .default {background-color: #42b983;}
+body {
+  background: #eee;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
 
-.vueperslides__bullet span {
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+}
+
+.swiper-slide img {
   display: block;
-  color: #fff;
-  font-size: 10px;
-  opacity: 0.8;
+  width: 100%;
 }
+
 </style>

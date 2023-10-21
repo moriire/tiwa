@@ -1,20 +1,38 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from rest_framework.serializers import ModelSerializer
+import uuid
+
 User = get_user_model()
+
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+    desc = models.TextField(default="")
+    thumb = models.ImageField(null=True, blank=True)
+    
+    def __unicode__(self):
+        return self.name
+
 class Upload(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
-    desc = models.TextField(default="")
+    desc = models.TextField(default="",)
     img = models.ImageField()
 
-    def __init__(self):
+    def __str__(self):
         return self.name
     
 class Product(models.Model):
+    id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False) 
     user = models.ForeignKey(User, related_name="user_product", on_delete=models.CASCADE)
+    category = models.ForeignKey(User, related_name="user_catgrory", on_delete=models.CASCADE)
     pic = models.ManyToManyField(Upload, blank=True)
     price = models.FloatField()
     discount = models.IntegerField(default=0)
+
+class CategorySerializer(ModelSerializer):
+    class Meta:
+        model = Category
+        fields = "__all__"
 
 class UploadSerializer(ModelSerializer):
     class Meta:
