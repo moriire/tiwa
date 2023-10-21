@@ -6,9 +6,9 @@ const labelsType = ref(1);
 </script>
 
 <template>
- <ui-form nowrap item-margin-bottom="16" label-width="80" center>
-  <template #default="{ subitemClass, actionClass }">
-    <ui-form-field>
+<div style="display:flex; flex-direction: row; justify-content:center; min-height: 60vh; align-items:center;">
+  <ui-form item-margin-bottom="16" label-width="80">
+  <ui-form-field>
       <ui-textfield outlined input-type="email"
         required
         helper-text-id="pw-validation-msg"
@@ -29,19 +29,14 @@ const labelsType = ref(1);
       <ui-button raised>Submit</ui-button>
       <!--ui-button outlined>Cancel</ui-button-->
     </ui-form-field>
-  </template>
-</ui-form>
-
+  </ui-form>
+</div>
 </template>
-<style scoped lang="scss">
-@use '@material/image-list' with (
-  $standard-gutter-size: 4px,
-  $masonry-gutter-size: 16px,
-  $icon-size: 24px,
-  $text-protection-background-color: rgba(0, 0, 0, 0.6),
-  $text-protection-height: 48px,
-  $text-protection-horizontal-padding: 16px,
-  $shape-radius: 0
-);
 
+<style scoped >
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center
+}
 </style>
