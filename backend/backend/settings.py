@@ -38,10 +38,14 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "rest_framework",
+    'rest_framework_simplejwt',
     "rest_framework.authtoken",
     "dj_rest_auth",
+    "coreapi",
+    "drf_yasg",
     "upload",
     "order",
+
     
 ]
 
@@ -146,6 +150,14 @@ AUTHENTICATION_CLASSES = (
     "dj_rest_auth.authentication.AllAuthJWTAuthentication",
 )
 
+
+REST_FRAMEWORK = {                           
+    'DEFAULT_AUTHENTICATION_CLASSES': ( 'dj_rest_auth.jwt_auth.JWTCookieAuthentication',),                                     
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_PERMISSION_CLASSES': [
+        #'rest_framework.permissions.IsAuthenticated',
+    ],           
+    }
 
 REST_AUTH = {
     'LOGIN_SERIALIZER': 'dj_rest_auth.serializers.LoginSerializer',

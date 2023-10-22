@@ -7,7 +7,7 @@ from rest_framework import serializers
 import uuid
 
 class User(AbstractBaseUser, PermissionsMixin):
-    id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False) 
+    username = None
     email = models.EmailField(_("email address"), unique=True,)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
