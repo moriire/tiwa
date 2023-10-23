@@ -4,18 +4,12 @@ from django.urls import path, re_path, include
 from upload.views import UploadViews, ProductViews, CategoryViews
 from dj_rest_auth.registration.views import RegisterView
 from user.models import CustomRegisterSerializer
-
 from rest_framework import permissions
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 #from rest_framework.schemas import get_schema_view
 
 from rest_framework.documentation import include_docs_urls
-
-
-
-
-
 
 # Swagger documentation setup
 schema_view = get_schema_view(                        
@@ -42,9 +36,7 @@ router.register("product", ProductViews)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("auth/", include("dj_rest_auth.urls")),
-    path("auth/register/", include("dj_rest_auth.registration.urls")),
+    path("auth/register/", CustomRegisterView.as_view(), name="reg"),# include("dj_rest_auth.registration.urls")),
     path("api/", include(router.urls)),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-
-    #path('auth/register/', CustomRegisterView.as_view(), name='custom-register'),
 ]

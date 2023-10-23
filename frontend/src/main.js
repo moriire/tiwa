@@ -12,19 +12,7 @@ const app = createApp(App)
 
 app.use(BalmUI); // Mandatory
 app.use(BalmUIPlus); // Optional
-app.use(BalmUIPlus, {
-    // Optional. Overwrite `<ui-navigation-bar>` props with default value.
-    UiNavigationBar: {
-      // some props
-    },
-       // some props
-  
-  // Optional. Overwrite `<ui-image-item>` props with default value.
-  UiImageItem: {
-    // some props
-  }
-}
-)
+
 app.use(createPinia())
 app.use(router)
 

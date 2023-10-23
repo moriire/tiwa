@@ -7,7 +7,7 @@ from rest_framework import serializers
 import uuid
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = None
+    id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
     email = models.EmailField(_("email address"), unique=True,)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -31,16 +31,29 @@ class User(AbstractBaseUser, PermissionsMixin):
         return f"{self.first_name} {self.last_name}"
  
 from dj_rest_auth.registration.serializers import RegisterSerializer
-from dj_rest_auth.serializers import UserDetailsSerializer
+from dj_rest_auth.serializers import UserDetailsSerializer, LoginSerializer
 from allauth.account import app_settings as allauth_account_settings
     
-class CustomRegisterSerializer(RegisterSerializer):
-    email = serializers.EmailField(required=allauth_account_settings.EMAIL_REQUIRED)
+class CustomLoginSerializer(LoginSerializer):
+    username=None
+    email = serializers.EmailField(required=False, allow_blank=True)
+    password = serializers.CharField(style={'input_type': 'password'})
+
+class  CustomRegisterSerializer(RegisterSerializer):
+    username=None
+
+class UserDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'password1', 'password2')
+        fields = ('id',)
 
-class UserDetailsSerializer(UserDetailsSerializer):
-    class Meta:   
-        model = User
-        fields = ["pk", "email"]
+from django.contrib.auth.backends import ModelBackend
+
+class EmailBackend(ModelBackend):
+    def authenticate(self, request, username=None, password=None, **kwargs):
+        try:
+            user = User.objects.get(email=username)
+            if user.check_password(password):
+                return user
+        except User.DoesNotExist:
+            return None
