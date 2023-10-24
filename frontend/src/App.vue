@@ -83,6 +83,41 @@ export default {
           <ui-item-text-content>Back</ui-item-text-content>
         </ui-item>
         <ui-list-divider></ui-list-divider>
+        <ui-item>
+          <ui-item-first-content>
+            <ui-icon>home</ui-icon>
+          </ui-item-first-content>
+          <ui-item-text-content>Home</ui-item-text-content>
+        </ui-item>
+        <ui-list-divider></ui-list-divider>
+        <ui-item>
+          <ui-item-first-content>
+            <ui-icon>profile</ui-icon>
+          </ui-item-first-content>
+          <ui-item-text-content>Profile</ui-item-text-content>
+        </ui-item>
+        <ui-list-divider></ui-list-divider>
+        <ui-item>
+          <ui-item-first-content>
+            <ui-icon>settings</ui-icon>
+          </ui-item-first-content>
+          <ui-item-text-content>Settings</ui-item-text-content>
+        </ui-item>
+        <ui-list-divider></ui-list-divider>
+        <ui-item active>
+          <ui-item-first-content>
+            <ui-icon>arrow_back</ui-icon>
+          </ui-item-first-content>
+          <ui-item-text-content>Back</ui-item-text-content>
+        </ui-item>
+        <ui-list-divider></ui-list-divider>
+        <ui-item active>
+          <ui-item-first-content>
+            <ui-icon>arrow_back</ui-icon>
+          </ui-item-first-content>
+          <ui-item-text-content>Back</ui-item-text-content>
+        </ui-item>
+        <ui-list-divider></ui-list-divider>
       </ui-list>
     </ui-drawer-content>
   </ui-drawer>

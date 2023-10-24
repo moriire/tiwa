@@ -10,7 +10,6 @@ const regAction = async () => {
   await stores.register({email: stores.regForm.email, password1: stores.regForm.password1, password2: stores.regForm.password2})
 }
 </script>
-
 <template>
 <div style="display:flex; flex-direction: row; justify-content:center; min-height: 60vh; align-items:center;">
   <ui-form item-margin-bottom="16" label-width="80">
