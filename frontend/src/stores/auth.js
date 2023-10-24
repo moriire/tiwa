@@ -8,6 +8,8 @@ import { defineStore } from "pinia"
 export const useAuthStore = defineStore({
 	id: "auth",
 	state: ()=> ({
+        isAuthenticated: false,
+        user: null,
 		loginForm: { email: "", password: "" },
 		regForm: {email: "",  password1: "", password2: "" },
 		stores : {
@@ -39,9 +41,10 @@ export const useAuthStore = defineStore({
 			const res = await axios.post(`${BASE}/auth/login/`, {email, password});
 			console.log(res.data
 				)
-            
 			localStorage.setItem("user", JSON.stringify(res.data));
 			console.log(localStorage.getItem("user"))
+            this.isAuthenticated = true;
+            this.user = JSON.parse(localStorage.getItem("user"))
             alert("success")
             router.push("home")
 			
