@@ -58,12 +58,12 @@ const router = useRouter();
         },
         {
           text: 'For Sale',
-          icon: 'music_note',
-          name: "register"
+          icon: 'category',
+          name: "products"
         },
         {
           text: 'Sell',
-          icon: 'place',
+          icon: 'store_front',
           name: "add-product"
         },
         {

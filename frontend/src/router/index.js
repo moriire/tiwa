@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AddProductView from '../views/AddProductView.vue'
+import ProductsByCategoryView from '../views/ProductsByCategoryView.vue'
 import UploadView from '../views/UploadView.vue'
 import {LoginView, RegisterView, ProfileView} from '../views/auth';
 import { useAuthStore } from '@/stores/auth';
@@ -12,13 +13,12 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-      //meta: { requiresAuth: true },
     },
     {
       path: '/profile',
       name: 'profile',
       component: ProfileView,
-      //meta: { requiresAuth: true },
+      meta: { requiresAuth: true },
     },
     {
       path: '/register',
@@ -37,6 +37,12 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: '/products',
+      name: 'products',
+      component: ProductsByCategoryView,
+      meta: { requiresAuth: true },
+    },
+    {
       path: '/upload',
       name: 'upload',
       component: UploadView,
@@ -45,11 +51,7 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
-      //meta: { requiresAuth: true },
     }
   ]
 })

@@ -1,16 +1,14 @@
 from pathlib import Path
 from datetime import timedelta
-
+import os
+from dotenv import load_dotenv
+load_dotenv()
+get = os.getenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-cay^w^#8ep+w4pvv1r%rz19ga=&j!ons=r9(6hwzjclu17nk1g'
-
+SECRET_KEY = get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = not False
@@ -147,7 +145,7 @@ AUTH_USER_MODEL = "user.User"
 ACCOUNT_USER_MODEL_USERNAME_FIELD = "email"
 #ACCOUNT_USERNAME_REQUIRED=False
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_AUTHENTICATION_METHOD =  'username_email'# 'username_email'
+ACCOUNT_AUTHENTICATION_METHOD =  'email'# 'username_email'
 ACCOUNT_EMAIL_VERIFICATION = "none" # 'mandatory'#
 
 # Internationalization
@@ -165,14 +163,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = '/assets/'
-
-#STATICFILES_DIRS = [ 'assets' ]
+STATIC_URL = '/static/'
 STATIC_ROOT =  BASE_DIR /'static'
 
-#STATICFILES_DIRS = [ BASE_DIR / "static" ]
 MEDIA_URL = '/media/'            
-
 MEDIA_ROOT = BASE_DIR /'media'
 
 # Default primary key field type
@@ -180,10 +174,11 @@ MEDIA_ROOT = BASE_DIR /'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_ALL_ORIGINS = True
-
+CORS_ALLOWED_ORIGINS = [
+     get("ALLOWED_ORIGINS")
+]
 CSRF_ALLOWED_ORIGINS = [
-    "*"
+    get("ALLOWED_ORIGINS") 
 ]
 
 SITE_ID=1
@@ -194,8 +189,8 @@ REST_USE_JWT=True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'ibmabdulsalam@gmail.com'
-EMAIL_HOST_PASSWORD = 'fsaofbmcenvoedwd'
+EMAIL_HOST_USER = get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = get("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
