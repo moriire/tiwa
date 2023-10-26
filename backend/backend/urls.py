@@ -1,7 +1,7 @@
 from rest_framework.routers import DefaultRouter
 from django.contrib import admin
 from django.urls import path, re_path, include
-
+from django.shortcuts import redirect
 from django.conf import settings
 from django.conf.urls.static import static
 from upload.views import UploadViews, ProductViews, CategoryViews
@@ -32,11 +32,15 @@ schema_view = get_schema_view(
 class CustomRegisterView(RegisterView):
     serializer_class = CustomRegisterSerializer
     
+def index(request):
+    return redirect("redoc/")
+
 router = DefaultRouter()
 router.register("category", CategoryViews)
 router.register("upload", UploadViews)
 router.register("product", ProductViews)
 urlpatterns = [
+    path("", index, name="home"),
     path('admin/', admin.site.urls),
     path("auth/", include("dj_rest_auth.urls")),
     path("auth/register/", CustomRegisterView.as_view(), name="reg"),# include("dj_rest_auth.registration.urls")),

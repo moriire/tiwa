@@ -34,7 +34,7 @@ class Upload(models.Model):
 class Product(models.Model):
     id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False) 
     user = models.ForeignKey(User, related_name="user_product", on_delete=models.CASCADE)
-    category = models.ForeignKey(User, related_name="user_catgrory", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="product_catgrory", on_delete=models.CASCADE)
     pic = models.ManyToManyField(Upload, blank=True)
     price = models.FloatField()
     discount = models.IntegerField(default=0)
