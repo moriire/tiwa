@@ -44,8 +44,10 @@ To get started with the Tiwa project, follow these steps:
 6. Access the backend API at `http://localhost:8000`.
 
 ## Deployment
-For deployment, you can use Gunicorn to serve the Django backend and a production-ready web server for the Vue 3 frontend. Please refer to the documentation for detailed deployment instructions.
-
+For deployment, you can use Gunicorn to serve the Django backend and a production-ready web server for the Vue 3 frontend using the command below
+```sh
+gunicorn --config gunicorn_config.py backend.wsgi
+```
 ## Contributing
 We welcome contributions to the Tiwa project. Feel free to open issues, submit pull requests, or participate in discussions.
 
