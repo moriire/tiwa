@@ -1,21 +1,27 @@
 from pathlib import Path
 from datetime import timedelta
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-nta1d6t@-wedz991p+wj3(x7a6(md8hk_l5%dqf9c@58vw2hbl'
+SECRET_KEY = 'django-insecure-cay^w^#8ep+w4pvv1r%rz19ga=&j!ons=r9(6hwzjclu17nk1g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = not False
 
 ALLOWED_HOSTS = ["*"]
 
+
+# Application definition
+
 INSTALLED_APPS = [
+    "user",
     "django.contrib.sites",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -24,20 +30,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "corsheaders",
-    "user",
-    "allauth",
-    "allauth.account",
-    'allauth.socialaccount',
     "rest_framework",
     "rest_framework.authtoken",
-    'rest_framework_simplejwt',
+    #"rest_framework_simplejwt",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
     "dj_rest_auth",
-    "coreapi",
-    "drf_yasg",
-    "upload",
+    'dj_rest_auth.registration',
+    'coreapi', # Coreapi for coreapi documentation                                    
+    'drf_yasg', # drf_yasg fro Swagger documentatio
+   "upload",
     "order",
-
-    
 ]
 
 MIDDLEWARE = [
@@ -49,7 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "allauth.account.middleware.AccountMiddleware"
+     'whitenoise.middleware.WhiteNoiseMiddleware',
+     "allauth.account.middleware.AccountMiddleware"
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -57,7 +62,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates/",],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,18 +79,53 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    #'default': {
+     #   'ENGINE': 'django.db.backends.mysql',
+      #  'NAME': 'oop$default',
+       # 'USER': 'oop',
+       # 'PASSWORD': 'acsolotltd',
+       # 'HOST': 'oop.mysql.pythonanywhere-services.com',
+    #}
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+    
 }
 
+REST_FRAMEWORK = {                           
+    'DEFAULT_AUTHENTICATION_CLASSES': ( 'dj_rest_auth.jwt_auth.JWTCookieAuthentication',),                                     
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_PERMISSION_CLASSES': [
+        #'rest_framework.permissions.IsAuthenticated',
+    ],           
+    }
+
+REST_AUTH = {
+    'LOGIN_SERIALIZER':  'user.models.CustomLoginSerializer',
+    'REGISTER_SERIALIZER': 'user.models.CustomRegisterSerializer',
+    "USER_DETAILS_SERIALIZER":'user.models.UserDetailsSerializer',
+    "USE_JWT": True,
+    'JWT_AUTH_RETURN_EXPIRATION': False,
+    'JWT_AUTH_HTTPONLY':False
+}
+JWT_AUTH_RETURN_EXPIRATION =True
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=2),
+    
+    'TOKEN_OBTAIN_SERIALIZER': "user.models.CustomTokenObtainPairSerializer",
+    "UPDATE_LAST_LOGIN": True,
+    "TOKEN_REFRESH_SERIALIZER": "user.models.TokenRefreshSerializer",
+}
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 
 # Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -102,9 +142,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "user.User"
+#USER_MODEL_USER_FIELD=None
+ACCOUNT_USER_MODEL_USERNAME_FIELD = "email"
+#ACCOUNT_USERNAME_REQUIRED=False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD =  'username_email'# 'username_email'
+ACCOUNT_EMAIL_VERIFICATION = "none" # 'mandatory'#
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
+# https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -112,73 +159,43 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
-
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
+# https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/assets/'
+
+#STATICFILES_DIRS = [ 'assets' ]
+STATIC_ROOT =  BASE_DIR /'static'
+
+#STATICFILES_DIRS = [ BASE_DIR / "static" ]
+MEDIA_URL = '/media/'            
+
+MEDIA_ROOT = BASE_DIR /'media'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = "user.User"
-
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_EMAIL_VERIFICATION = "none"
-
-REST_USE_JWT = True
-AUTHENTICATION_CLASSES = (
-    "dj_rest_auth.authentication.AllAuthJWTAuthentication",
-)
-
-
-REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
-    ],
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        #"rest_framework.authentication.SessionAuthentication",
-        #"rest_framework.authentication.TokenAuthentication",
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-    ],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'user.models.EmailBackend',
-    ],
-}
-
-AUTHENTICATION_BACKENDS = (
-   "django.contrib.auth.backends.ModelBackend",
-   "allauth.account.auth_backends.AuthenticationBackend"
-)
-
-REST_AUTH = {
-    'REGISTER_SERIALIZER': 'user.models.CustomRegisterSerializer',
-    'USER_DETAILS_SERIALIZER': 'user.models.UserDetailsSerializer',
-}
-REST_USE_EMAIL_FOR_LOGIN = True 
 CORS_ALLOW_ALL_ORIGINS = True
-REST_USE_JWT=True
-"""
-CSRF_TRUSTED_ORIGINS = [
-    "http://127.0.0.1:5173"
+
+CSRF_ALLOWED_ORIGINS = [
+    "*"
 ]
-"""
 
-CORS_ALLOW_ALL_ORIGINS = True
-
-CSRF_ALLOWED_ORIGINS = ["*"]
-
-CSRF_COOKIE_DOMAIN = "http://127.0.0.1:5173"
-CSRF_COOKIE_SECURE = not True 
-CSRF_COOKIE_HTTPONLY = not True
 SITE_ID=1
+REST_USE_JWT=True
+
+#fsao fbmc envo edwd
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ibmabdulsalam@gmail.com'
+EMAIL_HOST_PASSWORD = 'fsaofbmcenvoedwd'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

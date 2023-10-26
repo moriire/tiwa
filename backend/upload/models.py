@@ -1,3 +1,5 @@
+from collections.abc import Iterable
+from typing import Any
 from django.db import models
 from django.contrib.auth import get_user_model
 from rest_framework.serializers import ModelSerializer
@@ -9,8 +11,16 @@ class Category(models.Model):
     name = models.CharField(max_length=50)
     desc = models.TextField(default="")
     thumb = models.ImageField(null=True, blank=True)
+    def delete(self) -> tuple[int, dict[str, int]]:
+        self.thumb.storage.delete(self.thumb.name)
+        return super().delete()
     
-    def __unicode__(self):
+    def save(self, **kw) -> None:
+        if self.thumb.file:
+            self.thumb.storage.delete(self.thumb.name)
+        return super().save(**kw)
+    
+    def __str__(self):
         return self.name
 
 class Upload(models.Model):
@@ -28,6 +38,7 @@ class Product(models.Model):
     pic = models.ManyToManyField(Upload, blank=True)
     price = models.FloatField()
     discount = models.IntegerField(default=0)
+
 
 class CategorySerializer(ModelSerializer):
     class Meta:

@@ -42,10 +42,10 @@ class CustomLoginSerializer(LoginSerializer):
 class  CustomRegisterSerializer(RegisterSerializer):
     username=None
 
-class UserDetailsSerializer(serializers.ModelSerializer):
-    class Meta:
+class UserDetailsSerializer(UserDetailsSerializer):
+    class Meta(UserDetailsSerializer.Meta):
         model = User
-        fields = ('id',)
+        fields = ['id', "first_name", "last_name", "email"]
 
 from django.contrib.auth.backends import ModelBackend
 

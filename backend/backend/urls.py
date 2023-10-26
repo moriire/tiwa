@@ -1,6 +1,9 @@
 from rest_framework.routers import DefaultRouter
 from django.contrib import admin
 from django.urls import path, re_path, include
+
+from django.conf import settings
+from django.conf.urls.static import static
 from upload.views import UploadViews, ProductViews, CategoryViews
 from dj_rest_auth.registration.views import RegisterView
 from user.models import CustomRegisterSerializer
@@ -40,3 +43,7 @@ urlpatterns = [
     path("api/", include(router.urls)),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
+
+if settings.DEBUG:
+    urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

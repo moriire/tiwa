@@ -8,45 +8,38 @@ import { defineStore } from "pinia"
 export const useAuthStore = defineStore({
 	id: "auth",
 	state: ()=> ({
-        isAuthenticated: false,
-        user: null,
+        isAuthenticated: JSON.parse(localStorage.getItem("loggedin"))? true: false,
+        user: JSON.parse(localStorage.getItem("user")),
 		loginForm: { email: "", password: "" },
 		regForm: {email: "",  password1: "", password2: "" },
-		stores : {
-			data : JSON.parse(localStorage.getItem("user")),
-			loggedIn: localStorage.getItem("loggedin"),
-			detail: {}
-		}
+		detail: {email:"", first_name: "", last_name: ""}
 
 	}),
 	actions: {
 		async logout() {
 			try {
-			const res = await axios.post(`${BASE}/auth/logout/`, {headers: {'Content-Type': 'application/json', Authorization: `Bearer ${this.stores.access_token}`}})//config)
+			const res = await axios.post(`${BASE}/auth/logout/`, {headers: {'Content-Type': 'application/json', Authorization: `Bearer ${this.user.access}`}})//config)
 				const resp = res.data 
-				window.localStorage.clear()
-				alertifyjs.success("loggedout");   
-				router.push("/account/login");
+				localStorage.clear()
+                this.user = null;
+                this.isAuthenticated = false;
+				router.push("/login");
 			} catch(errors) {
 				console.log(errors);
 				window.localStorage.clear();
-				//location.href="/account/login"
+				this.user = null;
 				router.push("/account/login")
 				//alertifyjs.errors("loggedout");   
 			}
 	},
 	async login(email, password) {
 		try {
-
 			const res = await axios.post(`${BASE}/auth/login/`, {email, password});
-			console.log(res.data
-				)
 			localStorage.setItem("user", JSON.stringify(res.data));
-			console.log(localStorage.getItem("user"))
-            this.isAuthenticated = true;
-            this.user = JSON.parse(localStorage.getItem("user"))
+			localStorage.setItem("loggedin", JSON.stringify(true));
+			this.getUserProfile();
             alert("success")
-            router.push("home")
+            router.push({name: 'profile'})
 			
 		} catch(errors) {
 			console.log(errors)
@@ -54,23 +47,35 @@ export const useAuthStore = defineStore({
 				}
 	},
 	
-	getUserProfile(){
-		axios.get(`${BASE}/auth/user/`, { headers: {
-		  "Authorization": `Bearer ${this.stores.access_token}`,
-		  //"Content-Type": "application/json"
-		}})
-		.then(res => {
-		  //console.log(res)
-		  this.regForm = res.data
-		})
-		.catch(errors => {
-		  if (errors.response.data.code === "token_not_valid"){
-			this.logout()
-		  }
-		  alert(errors)
-		})
+	async getUserProfile(){
+		//console.log(this.user.access)
+		const headers = {
+			"Authorization": `Bearer ${this.user.access}`,
+			"Content-Type": "application/json"
+		}
+		try{
+			const res = await axios.get(`${BASE}/auth/user/`, { headers })
+			this.detail = res.data
+			console.log(res)
+		} catch(error){
+			console.log(error)
+		}
 	  },
-	  
+	
+	  async updateProfile(kw){
+		//console.log(this.user.access)
+		const headers = {
+			"Authorization": `Bearer ${this.user.access}`
+			//"Content-Type": "application/json"
+		}
+		try{
+			const res = await axios.put(`${BASE}/auth/user/`, {...kw}, { headers })
+			this.detail = res.data
+			console.log(res)
+		} catch(error){
+			console.log(error)
+		}
+	  },
 	async refreshToken(refresh_token = this.refresh_token) {
 		try {
 			const res = await axios.post(`${BASE}/auth/token/refresh/`, 
@@ -134,9 +139,4 @@ export const useAuthStore = defineStore({
 	},
 
 	},
-	getters:{
-		auth: (state)=>{
-			return this.data
-		}
-	}
 })
