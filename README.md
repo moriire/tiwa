@@ -1,7 +1,8 @@
 # Tiwa Web Application
 
 ## Project Overview
-Tiwa is a modern web application with a Vue 3 frontend and a Python Django backend that serves as a RESTful API. It utilizes various technologies to create a robust web application.
+Tiwa is a  modern web application designed to showcase African cultural products to the global market. This project consists of both frontend and backend components. 
+It is made up of a Vue 3 frontend and a Python Django backend that serves as a RESTful API. It utilizes various technologies to create a robust web application.
 
 ### Frontend
 The frontend of the Tiwa project is built with the following technologies:
