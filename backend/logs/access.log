@@ -1,0 +1,4 @@
+127.0.0.1 - - [26/Oct/2023:06:51:48 +0000] "GET /api/category/ HTTP/1.1" 200 81 "http://localhost:5173/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Mobile Safari/537.36"
+127.0.0.1 - - [26/Oct/2023:06:51:48 +0000] "GET /media/axl.jpg HTTP/1.1" 200 0 "http://localhost:5173/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Mobile Safari/537.36"
+127.0.0.1 - - [26/Oct/2023:06:51:54 +0000] "GET /api/category/ HTTP/1.1" 200 81 "http://localhost:5173/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
+127.0.0.1 - - [26/Oct/2023:06:58:21 +0000] "GET /api/category/ HTTP/1.1" 200 81 "http://localhost:5173/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"

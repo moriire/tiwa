@@ -15,7 +15,6 @@ DEBUG = not False
 
 ALLOWED_HOSTS = ["*"]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -30,14 +29,13 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
-    #"rest_framework_simplejwt",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     "dj_rest_auth",
     'dj_rest_auth.registration',
-    'coreapi', # Coreapi for coreapi documentation                                    
-    'drf_yasg', # drf_yasg fro Swagger documentatio
+    'coreapi',                                  
+    'drf_yasg', 
    "upload",
     "order",
 ]
@@ -80,18 +78,14 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    #'default': {
-     #   'ENGINE': 'django.db.backends.mysql',
-      #  'NAME': 'oop$default',
-       # 'USER': 'oop',
-       # 'PASSWORD': 'acsolotltd',
-       # 'HOST': 'oop.mysql.pythonanywhere-services.com',
-    #}
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+     'ENGINE': 'django.db.backends.postgresql',
+       'NAME': get("PSQL_DBNAME"),
+       'USER': get("PSQL_USER"),
+       'PASSWORD': get("PSQL_PASSWORD"),
+       'HOST': get("PSQL_HOST"),
+       "PORT": get("PORT")
     }
-    
 }
 
 REST_FRAMEWORK = {                           
@@ -114,7 +108,6 @@ JWT_AUTH_RETURN_EXPIRATION =True
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
     'REFRESH_TOKEN_LIFETIME': timedelta(hours=2),
-    
     'TOKEN_OBTAIN_SERIALIZER': "user.models.CustomTokenObtainPairSerializer",
     "UPDATE_LAST_LOGIN": True,
     "TOKEN_REFRESH_SERIALIZER": "user.models.TokenRefreshSerializer",
@@ -141,9 +134,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = "user.User"
-#USER_MODEL_USER_FIELD=None
 ACCOUNT_USER_MODEL_USERNAME_FIELD = "email"
-#ACCOUNT_USERNAME_REQUIRED=False
+ACCOUNT_USERNAME_REQUIRED=False
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD =  'email'# 'username_email'
 ACCOUNT_EMAIL_VERIFICATION = "none" # 'mandatory'#

@@ -1,0 +1,39 @@
+[2023-10-26 06:45:59 +0000] [16915] [INFO] Starting gunicorn 21.2.0
+[2023-10-26 06:45:59 +0000] [16915] [INFO] Listening at: http://0.0.0.0:8000 (16915)
+[2023-10-26 06:45:59 +0000] [16915] [INFO] Using worker: sync
+[2023-10-26 06:45:59 +0000] [16942] [INFO] Booting worker with pid: 16942
+[2023-10-26 06:45:59 +0000] [16943] [INFO] Booting worker with pid: 16943
+[2023-10-26 06:45:59 +0000] [16944] [INFO] Booting worker with pid: 16944
+[2023-10-26 06:45:59 +0000] [16945] [INFO] Booting worker with pid: 16945
+[2023-10-26 06:54:25 +0000] [16915] [INFO] Handling signal: int
+[2023-10-26 06:54:25 +0000] [16945] [INFO] Worker exiting (pid: 16945)
+[2023-10-26 06:54:25 +0000] [16942] [INFO] Worker exiting (pid: 16942)
+[2023-10-26 06:54:25 +0000] [16944] [INFO] Worker exiting (pid: 16944)
+[2023-10-26 06:54:25 +0000] [16943] [INFO] Worker exiting (pid: 16943)
+[2023-10-26 06:54:26 +0000] [16915] [INFO] Shutting down: Master
+[2023-10-26 06:58:11 +0000] [23058] [INFO] Starting gunicorn 21.2.0
+[2023-10-26 06:58:11 +0000] [23058] [INFO] Listening at: http://0.0.0.0:8000 (23058)
+[2023-10-26 06:58:11 +0000] [23058] [INFO] Using worker: sync
+[2023-10-26 06:58:11 +0000] [23059] [INFO] Booting worker with pid: 23059
+[2023-10-26 06:58:11 +0000] [23060] [INFO] Booting worker with pid: 23060
+[2023-10-26 06:58:11 +0000] [23061] [INFO] Booting worker with pid: 23061
+[2023-10-26 06:58:11 +0000] [23062] [INFO] Booting worker with pid: 23062
+[2023-10-26 07:11:10 +0000] [23058] [INFO] Handling signal: int
+[2023-10-26 07:11:10 +0000] [23062] [INFO] Worker exiting (pid: 23062)
+[2023-10-26 07:11:10 +0000] [23060] [INFO] Worker exiting (pid: 23060)
+[2023-10-26 07:11:10 +0000] [23061] [INFO] Worker exiting (pid: 23061)
+[2023-10-26 07:11:10 +0000] [23059] [INFO] Worker exiting (pid: 23059)
+[2023-10-26 07:11:10 +0000] [23058] [INFO] Shutting down: Master
+[2023-10-26 07:11:13 +0000] [30521] [INFO] Starting gunicorn 21.2.0
+[2023-10-26 07:11:13 +0000] [30521] [INFO] Listening at: http://0.0.0.0:8000 (30521)
+[2023-10-26 07:11:13 +0000] [30521] [INFO] Using worker: sync
+[2023-10-26 07:11:13 +0000] [30530] [INFO] Booting worker with pid: 30530
+[2023-10-26 07:11:13 +0000] [30531] [INFO] Booting worker with pid: 30531
+[2023-10-26 07:11:13 +0000] [30532] [INFO] Booting worker with pid: 30532
+[2023-10-26 07:11:13 +0000] [30533] [INFO] Booting worker with pid: 30533
+[2023-10-26 07:20:47 +0000] [30521] [INFO] Handling signal: int
+[2023-10-26 07:20:47 +0000] [30533] [INFO] Worker exiting (pid: 30533)
+[2023-10-26 07:20:47 +0000] [30531] [INFO] Worker exiting (pid: 30531)
+[2023-10-26 07:20:47 +0000] [30532] [INFO] Worker exiting (pid: 30532)
+[2023-10-26 07:20:47 +0000] [30530] [INFO] Worker exiting (pid: 30530)
+[2023-10-26 07:20:48 +0000] [30521] [INFO] Shutting down: Master
