@@ -173,14 +173,14 @@ CSRF_ALLOWED_ORIGINS = [
     get("ALLOWED_ORIGINS") 
 ]
 
-SITE_ID=1
+SITE_ID = int(get("SITE_ID"))
 REST_USE_JWT=True
 
 #fsao fbmc envo edwd
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = get("EMAIL_HOST")
 EMAIL_HOST_USER = get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = get("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587

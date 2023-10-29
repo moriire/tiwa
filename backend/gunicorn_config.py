@@ -7,3 +7,4 @@ timeout = 60
 loglevel = 'info'
 accesslog = './logs/access.log'
 errorlog = './logs/error.log'
+reload = True

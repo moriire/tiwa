@@ -11,12 +11,14 @@ class Category(models.Model):
     name = models.CharField(max_length=50)
     desc = models.TextField(default="")
     thumb = models.ImageField(null=True, blank=True)
+
     def delete(self) -> tuple[int, dict[str, int]]:
-        self.thumb.storage.delete(self.thumb.name)
+        if self.thumb:
+            self.thumb.storage.delete(self.thumb.name)
         return super().delete()
     
     def save(self, **kw) -> None:
-        if self.thumb.file:
+        if self.thumb:
             self.thumb.storage.delete(self.thumb.name)
         return super().save(**kw)
     
