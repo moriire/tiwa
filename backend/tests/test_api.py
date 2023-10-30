@@ -22,7 +22,7 @@ class CategoryAPITestCase(APITestCase):
         self.password = "testpassword"
         self.user = User.objects.create_user(email=self.email, password=self.password)
         self.token, _ = Token.objects.get_or_create(user=self.user)
-    
+        print("created test user account")
     def setUpCategory(self):
         self.category_data = {
             'name': 'African Art', 
@@ -30,6 +30,7 @@ class CategoryAPITestCase(APITestCase):
         }
         self.category = Category.objects.create(**self.category_data)
         self.category.save()
+        print("created test product category")
 
     def setUpProduct(self):
         self.product_data = {
@@ -40,6 +41,7 @@ class CategoryAPITestCase(APITestCase):
         }
         self.product = Product.objects.create(**self.product_data)
         self.product.save()
+        print("created test product")
 
     def setUp(self) -> None:
         self.setUpAuth()
@@ -79,7 +81,7 @@ class CategoryAPITestCase(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Product.objects.count(), 2)  # Assuming you had only one object before
-    """
+    
     def test_update_category(self):
         url = reverse('category-detail', kwargs={'pk': self.category.pk})
         data = {'name': 'testing'}
@@ -96,7 +98,6 @@ class CategoryAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Category.objects.count(), 0)
 
-    
     def test_update_product(self):
         url = reverse('product-detail', kwargs={'pk': self.category.id})
         data = {'name': 'testing'}
@@ -105,7 +106,7 @@ class CategoryAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.product.refresh_from_db()
         self.assertEqual(self.product.name, 'testing')
-    """
+    
     def test_delete_product(self):
         url = reverse('product-detail', kwargs={'pk': self.product.pk})
         response = self.client.delete(url)

@@ -16,12 +16,12 @@ class Category(models.Model):
         if self.thumb:
             self.thumb.storage.delete(self.thumb.name)
         return super().delete()
-    
+    """
     def save(self, **kw) -> None:
         if self.thumb:
             self.thumb.storage.delete(self.thumb.name)
         return super().save(**kw)
-    
+    """
     def __str__(self):
         return self.name
 
