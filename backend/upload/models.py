@@ -38,6 +38,7 @@ class Product(models.Model):
     user = models.ForeignKey(User, related_name="user_product", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="product_catgrory", on_delete=models.CASCADE)
     pic = models.ManyToManyField(Upload, blank=True)
+    name = models.CharField(max_length=60)
     price = models.FloatField()
     discount = models.IntegerField(default=0)
 
