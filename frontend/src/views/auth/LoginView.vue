@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useAuthStore } from "@/stores/auth"
 //import alertifyjs from '@/alertifyjs';
-import { useRoute } from "vue-router";
+import { useRoute, RouterLink } from "vue-router";
 const labelsType = ref(1);
 const route = useRoute();
 const stores = useAuthStore();
@@ -12,33 +12,31 @@ const loginAction = async () => {
 </script>
 
 <template>
-<div style="display:flex; flex-direction: row; justify-content:center; min-height: 60vh; align-items:center;">
-  <ui-form item-margin-bottom="16" label-width="80" >
-  <ui-form-field>
-      <ui-textfield outlined input-type="email"
-        required
-        v-model="stores.loginForm.email"
-        helper-text-id="pw-validation-msg"
-        :attrs="{autocomplete: 'email'}">
-        Email
-      </ui-textfield>
-    </ui-form-field>
-    <ui-form-field>
-      <ui-textfield outlined input-type="password"
-        required
-        v-model="stores.loginForm.password"
-        pattern=".{8,}"
-        helper-text-id="pw-validation-msg"
-        :attrs="{autocomplete: 'current-password'}">
-        Password
-      </ui-textfield>
-    </ui-form-field>
-    <ui-form-field >
-      <ui-button raised @click="loginAction()">Submit</ui-button>
-      <ui-button outlined>Cancel</ui-button>
-    </ui-form-field>
-  </ui-form>
-</div>
+  <div class="grid  justify-content-center align-items-center" style="height:90vh;">
+     <div class="card col-lg-6 col-sm-10 col-xs-12 p-5">
+      
+      <div class="p-inputgroup flex-1" style="margin:10px 0;">
+        <span class="p-inputgroup-addon">
+                <i class="pi pi-user"></i>
+        </span>  
+        <InputText placeholder="Email" v-model="stores.loginForm.email" />
+      </div>
+    
+      <div class="p-inputgroup flex-1" style="margin:10px 0;">
+        <span class="p-inputgroup-addon">
+                <i class="pi pi-lock"></i>
+        </span>  
+        <Password placeholder="Enter Password" v-model="stores.loginForm.password" toggleMask  />
+      </div>
+      <div class="p-inputgroup flex-1" style="margin:10px 0;">
+          <Button type="submit" label="login" @click="loginAction()" raised />
+      </div>
+      <div class="col-12">
+        Dont have an account? <RouterLink to="register"> Sign up</RouterLink>
+      </div>
+    </div>
+  
+  </div> 
 </template>
 
 <style scoped >

@@ -14,11 +14,11 @@
   },
   "dependencies": {
     "axios": "^1.5.1",
-    "balm-ui": "^10.23.2",
     "pinia": "^2.1.6",
+    "primeflex": "^3.3.1",
+    "primevue": "^3.39.0",
     "swiper": "^10.3.1",
     "vue": "^3.3.4",
-    "vue-core-image-upload": "^2.4.14",
     "vue-router": "^4.2.4"
   },
   "devDependencies": {

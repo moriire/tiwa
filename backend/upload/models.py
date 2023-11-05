@@ -42,18 +42,35 @@ class Product(models.Model):
     price = models.FloatField()
     discount = models.IntegerField(default=0)
 
-
 class CategorySerializer(ModelSerializer):
     class Meta:
         model = Category
         fields = "__all__"
+
+
+class CategoryNameSerializer(ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ("name",)
 
 class UploadSerializer(ModelSerializer):
     class Meta:
         model = Upload
         fields = "__all__"
 
+class SingleImageUploadSerializer(ModelSerializer):
+    class Meta:
+        model = Upload
+        fields = ("img",)
+
+class FullProductSerializer(ModelSerializer):
+    class Meta:
+        model = Product
+        fields = "__all__"
+
 class ProductSerializer(ModelSerializer):
+    pic = SingleImageUploadSerializer(many=True)
+    category = CategoryNameSerializer()
     class Meta:
         model = Product
         fields = "__all__"

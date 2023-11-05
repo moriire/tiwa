@@ -5,11 +5,13 @@ console.log(BASE);
 import router from "@/router";
 import axios from "axios";
 import { defineStore } from "pinia"
+import Toast from "primevue/toast";
+
 export const useAuthStore = defineStore({
 	id: "auth",
 	state: ()=> ({
-        isAuthenticated: JSON.parse(localStorage.getItem("loggedin"))? true: false,
-        user: JSON.parse(localStorage.getItem("user")),
+        isAuthenticated: JSON.parse(localStorage.getItem("loggedin")),
+        user: null,//JSON.parse(localStorage.getItem("user")),
 		loginForm: { email: "", password: "" },
 		regForm: {email: "",  password1: "", password2: "" },
 		detail: {email:"", first_name: "", last_name: ""}
@@ -28,7 +30,7 @@ export const useAuthStore = defineStore({
 				console.log(errors);
 				window.localStorage.clear();
 				this.user = null;
-				router.push("/account/login")
+				router.push("/login")
 				//alertifyjs.errors("loggedout");   
 			}
 	},
@@ -36,9 +38,11 @@ export const useAuthStore = defineStore({
 		try {
 			const res = await axios.post(`${BASE}/auth/login/`, {email, password});
 			localStorage.setItem("user", JSON.stringify(res.data));
-			localStorage.setItem("loggedin", JSON.stringify(true));
-			this.getUserProfile();
-            alert("success")
+			localStorage.setItem("loggedin", JSON.stringify(1));
+			//this.isAuthenticated = true;
+			//this.getUserProfile();
+            //alert("success")
+			this.user = JSON.parse(localStorage.getItem("user"));
             router.push({name: 'profile'})
 			
 		} catch(errors) {
@@ -48,15 +52,14 @@ export const useAuthStore = defineStore({
 	},
 	
 	async getUserProfile(){
-		//console.log(this.user.access)
+		const user = JSON.parse(localStorage.getItem("user"))
 		const headers = {
-			"Authorization": `Bearer ${this.user.access}`,
+			"Authorization": `Bearer ${user.access}`,
 			"Content-Type": "application/json"
 		}
 		try{
 			const res = await axios.get(`${BASE}/auth/user/`, { headers })
 			this.detail = res.data
-			console.log(res)
 		} catch(error){
 			console.log(error)
 		}
@@ -73,6 +76,7 @@ export const useAuthStore = defineStore({
 			this.detail = res.data
 			console.log(res)
 		} catch(error){
+			
 			console.log(error)
 		}
 	  },

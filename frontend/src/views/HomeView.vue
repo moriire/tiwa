@@ -1,5 +1,4 @@
 <template>
-  {{ categories }}
   <swiper
     :effect="'coverflow'"
     :grabCursor="true"
@@ -16,10 +15,9 @@
     :modules="modules"
     class="mySwiper"
   >
-    <swiper-slide v-for="cat in category.categoryData" v-bind:value="cat.id">
+    <swiper-slide v-for="cat in category.categories" v-bind:key="cat.id">
       <router-link :to="{name:'upload'}">
       <img :src="cat.thumb" />
-      {{ cat.name }}
       </router-link>
     </swiper-slide>
   </swiper>
@@ -27,16 +25,12 @@
 <script>
   // Import Swiper Vue.js components
   import { Swiper, SwiperSlide } from 'swiper/vue';
-import { onMounted } from "vue"
-  // Import Swiper styles
+import { onMounted } from "vue";
   import 'swiper/css';
 
   import 'swiper/css/effect-coverflow';
   import 'swiper/css/pagination';
-import { useCategoryStore } from "@/stores/categories"
-  //import './style.css';
-
-  // import required modules
+import { useCategoryStore } from "@/stores/categories";
   import { EffectCoverflow, Pagination } from 'swiper/modules';
 
   export default {
@@ -47,11 +41,11 @@ import { useCategoryStore } from "@/stores/categories"
     setup() {
       const category = useCategoryStore();
       onMounted(()=>{
-        category.categories()
+        category.getCategories()
       })
       return {
         category,
-        cats: category.categoryData,
+        cats: category.categories,
         modules: [EffectCoverflow, Pagination],
       };
     },

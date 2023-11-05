@@ -4,23 +4,14 @@ import router from "@/router";
 import { useAuthStore } from './auth'
 import axios from 'axios';
 const BASE = "http://127.0.0.1:8000";
-export const useCategoryStore = defineStore('categories', () => {
-  const category_data = ref({ category:"", name:"", discount: 0, price: 0 });
+export const useProductStore = defineStore('product', () => {
+    const category_data = ref({ category:"", name:"", discount: 0, price: 0 });
+    const product_data = ref({});
   const categories = ref([]);
   const options  = computed(() => categories.value.map(x=>{
     return {label: x.name, value: x.id}
   }
   ))
-  const getCategories = async () => {
-    try {
-      const res = await axios.get(`${BASE}/api/category/`)
-      categories.value = res.data
-      console.log(options.value)
-    } catch(error){
-      console.log(error)
-    }
-  };
-
 	const CreateProduct = async ()=>{
     const auth = JSON.parse(localStorage.getItem("user"))
 		try {
@@ -37,5 +28,17 @@ export const useCategoryStore = defineStore('categories', () => {
 			//return errors.response
 		}
 	};
-  return { getCategories, CreateProduct, categories, options, category_data, options }
+
+    const getProducts = async ()=>{
+        const auth = JSON.parse(localStorage.getItem("user"))
+            try {
+    
+                const res = await axios.get(`${BASE}/api/product/`)
+                product_data.value = res.data
+            } catch(errors){
+                console.log(errors)
+                //return errors.response
+            }
+        };
+  return { CreateProduct, getProducts, category_data, product_data }
 })

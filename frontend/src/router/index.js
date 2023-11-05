@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '../views/HomeView.vue';
 import AddProductView from '../views/AddProductView.vue'
-import ProductsByCategoryView from '../views/ProductsByCategoryView.vue'
+import ProductsByCategoryView from '../views/ProductsByCategoryView.vue';
+import ProductsView from "../views/ProductsView.vue";
 import UploadView from '../views/UploadView.vue'
 import {LoginView, RegisterView, ProfileView} from '../views/auth';
 import { useAuthStore } from '@/stores/auth';
@@ -39,7 +40,8 @@ const router = createRouter({
     {
       path: '/products',
       name: 'products',
-      component: ProductsByCategoryView,
+      //component: ProductsByCategoryView,
+      component: ProductsView,
       meta: { requiresAuth: true },
     },
     {
@@ -64,4 +66,3 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-

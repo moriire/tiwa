@@ -11,45 +11,27 @@ onMounted(()=>{
     stores.getUserProfile()
 })
 </script>
-<template>
-<div style="display:flex; flex-direction: row; justify-content:center; min-height: 60vh; align-items:center;">
-  <ui-form item-margin-bottom="16" label-width="80">
-  <ui-form-field>
-      <ui-textfield outlined input-type="email"
-        v-model = "stores.detail.email"
-        required
-        readonly
-        helper-text-id="pw-validation-msg"
-        :attrs="{autocomplete: 'email'}">
-        Email
-      </ui-textfield>
-    </ui-form-field>
-    <ui-form-field>
-      <ui-textfield outlined input-type="text"
-        required
-        v-model="stores.detail.first_name"
-        helper-text-id="pw-validation-msg"
-        :attrs="{autocomplete: 'first-name'}">
-        Fisrt Name:
-      </ui-textfield>
-    </ui-form-field>
-    <ui-form-field>
-      <ui-textfield outlined input-type="text"
-      v-model="stores.detail.last_name"
-        required
-        helper-text-id="pw-validation-msg"
-        :attrs="{autocomplete: 'last-name'}">
-        Last Name:
-      </ui-textfield>
-    </ui-form-field>
-    <ui-form-field :class="actionClass">
-      <ui-button raised @click="stores.updateProfile(stores.detail)">Update Profile</ui-button>
-      <!--ui-button outlined>Cancel</ui-button-->
-    </ui-form-field>
-  </ui-form>
-</div>
-</template>
 
+<template>
+  <div class="grid  justify-content-center m-4 p-4" style="height:90vh;">
+     <div class="card col-lg-6 col-sm-10 col-xs-12 p-5">
+      
+      <div class="p-inputgroup flex-1" style="margin:10px 0;">
+          <InputText placeholder="Email" v-model = "stores.detail.email" />
+      </div>
+     <div class="p-inputgroup flex-1" style="margin:10px 0;">
+         
+         <InputText placeholder="Last Name" v-model = "stores.detail.first_name"/>
+     </div>
+      <div class="p-inputgroup flex-1" style="margin:10px 0;">
+          <InputText placeholder="Last Name" v-model = "stores.detail.last_name" />
+      </div>
+      <div class="p-inputgroup flex-1" style="margin:10px 0;">
+          <Button type="submit" label="Create Product" @click="stores.updateProfile(stores.detail)" raised />
+      </div>
+  </div>
+  </div> 
+</template>
 <style scoped >
 .row {
   display: flex;
