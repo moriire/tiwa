@@ -1,10 +1,24 @@
 <template>
-    <Toolbar>
+    
+<Toolbar>
+    
     <template #start>
-        <Button icon="pi pi-plus" class="mr-2" />
+       <div>
+        logo
+       </div>
+       
     </template>
+    <template #end>
+        <ThemeSwitcher />
+        <div class="card relative z-2">
+            <Menubar :model="items" />
+        </div>
+       
+    </template>
+</Toolbar>
+<Toolbar>
     <template #center>
-      <TabMenu v-model:activeIndex="active" :model="items">
+      <TabMenu v-model:activeIndex="active" :model="items" style="margin:0;">
           <template #item="{ label, item, props }">
               <router-link v-if="item.route" v-slot="routerProps" :to="item.route" custom>
                   <a :href="routerProps.href" v-bind="props.action" @click="($event) => routerProps.navigate($event)" @keydown.enter.space="($event) => routerProps.navigate($event)">
@@ -15,21 +29,22 @@
           </template>
       </TabMenu>
     </template>
-    <template #end>
-        <SplitButton :label="authStore.isAuthenticated?'Loggedin':'Login'" icon="pi pi-check" :model="authStore.isAuthenticated?loggedin:loggedout"></SplitButton>
-    </template>
-    </Toolbar>
-    <RouterView/>
+    
+</Toolbar>
+<RouterView/>
 </template>
 
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import { useRouter, useRoute, RouterView } from "vue-router";
 import { useAuthStore } from "./stores/auth";
+import ThemeSwitcher from './components/ThemeSwitcher.vue';
+
 const router = useRouter();
 const route = useRoute();
 const authStore = useAuthStore()
 const active = ref(0);
+const sidebarVisible = ref(!false);
 const loggedout = ref([
   {
       label: 'Login',
@@ -108,6 +123,9 @@ watch(
   },
   { immediate: true }
 );
+const toggleSidebar= () =>{
+        sidebarVisible.value = !sidebarVisible;
+}
 </script>
 <style>
 #app{
