@@ -3,7 +3,8 @@ import { defineStore } from 'pinia'
 import router from "@/router";
 import { useAuthStore } from './auth'
 import axios from 'axios';
-const BASE = "http://127.0.0.1:8000";
+
+const BASE = import.meta.env.VITE_BACKEND_API_URL;
 export const useCategoryStore = defineStore('categories', () => {
   const category_data = ref({ category:"", name:"", discount: 0, price: 0 });
   const categories = ref([]);

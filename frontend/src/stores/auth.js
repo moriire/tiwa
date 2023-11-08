@@ -1,12 +1,9 @@
-//const BASE = import.meta.env.VITE_API_URL; //
-const BASE = "http://127.0.0.1:8000";
-console.log(BASE);
-//import alertifyjs from "@/alertifyjs";
 import router from "@/router";
 import axios from "axios";
 import { defineStore } from "pinia"
 import Toast from "primevue/toast";
 
+const BASE = import.meta.env.VITE_BACKEND_API_URL;
 export const useAuthStore = defineStore({
 	id: "auth",
 	state: ()=> ({
