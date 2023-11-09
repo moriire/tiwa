@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from .models import Category, CategorySerializer, Upload, Product, UploadSerializer, ProductSerializer
+from .models import Category, CategorySerializer, Upload, Product, UploadSerializer, ProductSerializer, ProductWithImages, ProductWithImagesSerializer
 from rest_framework.decorators import action
 
 class CategoryViews(ModelViewSet):
@@ -24,3 +24,7 @@ class ProductViews(ModelViewSet):
     @action(detail=True, methods=["get"])
     def product_per_image(self, request):
         products = self.get_object()
+
+class ProductWithImagesViews(ModelViewSet):
+    queryset = ProductWithImages.objects.all()
+    serializer_class = ProductWithImagesSerializer

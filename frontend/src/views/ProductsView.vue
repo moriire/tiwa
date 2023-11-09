@@ -1,65 +1,51 @@
 <template>
-    <div class="card">
-        <DataView :value="productStore.product_data" :layout="layout">
-    <template #header>
-        <div class="flex justify-content-end">
-            <DataViewLayoutOptions v-model="layout" />
-        </div>
-    </template>
 
-    <template #list="slotProps">
-        <div class="col-12">
-            <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.data.image}`" :alt="slotProps.data.name" />
-                <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                    <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                        <div class="text-2xl font-bold text-900">{{ slotProps.name }}</div>
-                        <Rating :modelValue="slotProps.data.rating" readonly :cancel="false"></Rating>
-                        <div class="flex align-items-center gap-3">
-                            <span class="flex align-items-center gap-2">
-                                <i class="pi pi-tag"></i>
-                                <span class="font-semibold">{{ slotProps.data.category }}</span>
-                            </span>
-                            <Tag :value="slotProps.data.inventoryStatus" :severity="getSeverity(slotProps.data)"></Tag>
-                        </div>
-                    </div>
-                    <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                        <span class="text-2xl font-semibold">&#8358; {{ slotProps.data.price }}</span>
-                        <Button icon="pi pi-shopping-cart" rounded :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </template>
 
-    <template #grid="slotProps">
-        <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
-            <div class="p-4 border-1 surface-border surface-card border-round">
-                <div class="flex flex-wrap align-items-center justify-content-between gap-2">
-                    <div class="flex align-items-center gap-2">
-                        <i class="pi pi-tag"></i>
-                        <span class="font-semibold">{{ slotProps.data.category.name }}</span>
-                    </div>
-                    <Tag :value="slotProps.data.inventoryStatus" :severity="getSeverity(slotProps.data)"></Tag>
-                </div>
-                <div class="flex flex-column align-items-center gap-3 py-5">
-                    <img class="w-9 shadow-2 border-round" :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.data.image}`" :alt="slotProps.data.name" />
-                    <div class="text-2xl font-bold">{{ slotProps.data.name }}</div>
-                                    <Rating :modelValue="slotProps.data.rating" readonly :cancel="false"></Rating>
-                </div>
-                <div class="flex align-items-center justify-content-between">
-                    <span class="text-2xl font-semibold">&#8358; {{ slotProps.data.price }}</span>
-                    <Button icon="pi pi-shopping-cart" rounded :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
-                </div>
-            </div>
-        </div>
-    </template>
-</DataView>
-    </div>
+		<!-- Start Hero Section -->
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Shop</h1>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- End Hero Section -->
+
+		
+
+		<div class="untree_co-section product-section before-footer-section">
+		    <div class="container">
+		      	<div class="row">
+
+		      		<!-- Start Column 1 -->
+					<div class="col-12 col-md-4 col-lg-3 mb-5"
+                    v-for="product in productStore.product_data" v-bind:key="product.id">
+						<a class="product-item" href="#">
+							<img :src="product.img" class="img-fluid product-thumbnail">
+							<h3 class="product-title">{{ product.name }}</h3>
+							<strong class="product-price">&#8358; {{ product.price }}</strong>
+
+							<span class="icon-cross">
+								<img :src="product.img" class="img-fluid">
+							</span>
+						</a>
+					</div> 
+					<!-- End Column 1 -->
+						
+
+		      	</div>
+		    </div>
+		</div>
 </template>
 
 <script setup>
-import  'primeflex/primeflex.css';
 import { ref, onMounted } from "vue";
 import { useProductStore } from '@/stores/product';
 const productStore = useProductStore();
@@ -68,22 +54,4 @@ onMounted(() => {
 });
 
 const products = ref();
-const layout = ref('grid');
-
-const getSeverity = (product) => {
-    switch (product.inventoryStatus) {
-        case 'INSTOCK':
-            return 'success';
-
-        case 'LOWSTOCK':
-            return 'warning';
-
-        case 'OUTOFSTOCK':
-            return 'danger';
-
-        default:
-            return null;
-    }
-}
-
 </script>

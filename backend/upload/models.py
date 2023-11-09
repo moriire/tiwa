@@ -5,6 +5,12 @@ from django.contrib.auth import get_user_model
 from rest_framework.serializers import ModelSerializer
 import uuid
 
+def upload_location(instance, filename):
+    import os
+    return os.path.join(
+            instance.product.category.name,
+            instance.product.name
+    )
 User = get_user_model()
 
 class Category(models.Model):
@@ -25,22 +31,28 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Upload(models.Model):
-    name = models.CharField(max_length=50, blank=True, null=True)
-    desc = models.TextField(default="",)
-    img = models.ImageField()
-
-    def __str__(self):
-        return self.name
-    
 class Product(models.Model):
     id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False) 
     user = models.ForeignKey(User, related_name="user_product", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="product_catgrory", on_delete=models.CASCADE)
-    pic = models.ManyToManyField(Upload, blank=True)
     name = models.CharField(max_length=60)
     price = models.FloatField()
     discount = models.IntegerField(default=0)
+
+class Upload(models.Model):
+    product = models.ForeignKey(Product, related_name="product_upload", on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    img = models.ImageField(upload_to=upload_location)
+
+    def __str__(self):
+        return self.name
+    
+class ProductWithImages(models.Model):
+    product = models.ForeignKey(Product, related_name="product_with_images_upload", on_delete=models.CASCADE, null=True, blank=True)
+    images = models.ManyToManyField(Upload, related_name="product_with_images")
+
+    def __str__(self):
+        return self.product
 
 class CategorySerializer(ModelSerializer):
     class Meta:
@@ -69,8 +81,14 @@ class FullProductSerializer(ModelSerializer):
         fields = "__all__"
 
 class ProductSerializer(ModelSerializer):
-    pic = SingleImageUploadSerializer(many=True)
     category = CategoryNameSerializer()
     class Meta:
         model = Product
+        fields = "__all__"
+
+class ProductWithImagesSerializer(ModelSerializer):
+    product = ProductSerializer()
+    images = UploadSerializer(many=True)
+    class Meta:
+        model = ProductWithImages
         fields = "__all__"

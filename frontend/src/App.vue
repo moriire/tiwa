@@ -1,89 +1,17 @@
 <template>
-    
-<Toolbar>
-    
-    <template #start>
-       <div>
-        logo
-       </div>
-       
-    </template>
-    <template #end>
-        <ThemeSwitcher />
-        <div class="card relative z-2">
-            <Menubar :model="items" />
-        </div>
-       
-    </template>
-</Toolbar>
-<Toolbar>
-    <template #center>
-      <TabMenu v-model:activeIndex="active" :model="items" style="margin:0;">
-          <template #item="{ label, item, props }">
-              <router-link v-if="item.route" v-slot="routerProps" :to="item.route" custom>
-                  <a :href="routerProps.href" v-bind="props.action" @click="($event) => routerProps.navigate($event)" @keydown.enter.space="($event) => routerProps.navigate($event)">
-                      <span v-bind="props.icon" />
-                      <span v-bind="props.label">{{ label }}</span>
-                  </a>
-              </router-link>
-          </template>
-      </TabMenu>
-    </template>
-    
-</Toolbar>
-<RouterView/>
+    <RouterView/>
 </template>
 
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import { useRouter, useRoute, RouterView } from "vue-router";
 import { useAuthStore } from "./stores/auth";
-import ThemeSwitcher from './components/ThemeSwitcher.vue';
+//import ThemeSwitcher from './components/ThemeSwitcher.vue';
 
 const router = useRouter();
 const route = useRoute();
 const authStore = useAuthStore()
 const active = ref(0);
-const sidebarVisible = ref(!false);
-const loggedout = ref([
-  {
-      label: 'Login',
-      icon: 'pi pi-fw pi-home',
-      route: '/'
-  },
-  {
-      label: 'Sign up',
-      icon: 'pi pi-fw pi-home',
-      route: '/'
-  },
-  {
-      label: 'Forgot Password',
-      icon: 'pi pi-fw pi-gift',
-      route: '/products'
-  },
-]);
-const loggedin = ref([
-  {
-      label: 'Profile',
-      icon: 'pi pi-fw pi-user',
-      route: '/profile'
-  },
-  {
-      label: 'Change Password',
-      icon: 'pi pi-fw pi-lock',
-      route: '/products'
-  },
-  {
-      label: 'Logout',
-      icon: 'pi pi-fw pi-user',
-      route: '/profile'
-  },
-  {
-      label: 'Upload',
-      icon: 'pi pi-fw pi-upload',
-      route: '/upload'
-  }
-]);
 const items = ref([
   {
       label: 'Home',
@@ -123,12 +51,4 @@ watch(
   },
   { immediate: true }
 );
-const toggleSidebar= () =>{
-        sidebarVisible.value = !sidebarVisible;
-}
 </script>
-<style>
-#app{
-    height: 100vh;
-}
-</style>

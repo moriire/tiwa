@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from "vue";
 import { useAuthStore } from "@/stores/auth"
-//import alertifyjs from '@/alertifyjs';
 import { useRoute, RouterLink } from "vue-router";
 const labelsType = ref(1);
 const route = useRoute();
@@ -12,37 +11,37 @@ const loginAction = async () => {
 </script>
 
 <template>
-  <div class="grid  justify-content-center align-items-center" style="height:90vh;">
-     <div class="card col-lg-6 col-sm-10 col-xs-12 p-5">
-      
-      <div class="p-inputgroup flex-1" style="margin:10px 0;">
-        <span class="p-inputgroup-addon">
-                <i class="pi pi-user"></i>
-        </span>  
-        <InputText placeholder="Email" v-model="stores.loginForm.email" />
+   <div class="container">
+      <div class="row justify-content-center align-items-center vh-100">
+
+
+        <div class="card col-md-4 col-lg-6 col-10 bg-dark p-4">
+          <h2 class="text-center text-light">Login</h2>
+          <form @submit.prevent="loginAction()" >
+          
+            <div class="form-group">
+              <!--label class="text-black" for="email">Email Address</label-->
+              <input type="email" class="form-control" id="email" placeholder="Email" v-model="stores.loginForm.email" required>
+            </div>
+            <div class="form-group mt-4">
+              <!--label class="text-black" for="password2">Password</label-->
+              <input type="password" class="form-control" id="password" placeholder="Password" v-model = "stores.regForm.password1" required >
+            </div>
+            <div class="form-group mt-2 text-end">
+              <RouterLink class="text-decoration-none" :to="{name:'register'}" >Forgot Password ?</RouterLink>
+            </div>
+            <div class="form-group mt-4 text-center">
+              <button type="submit" class="btn btn-primary-hover-outline btn-primary mx-auto px-auto"  >Login</button>
+            </div>
+            <div class="form-group mt-4 text-center text-light">Don't have an account yet? <span> <RouterLink class="text-decoration-none" :to="{name:'register'}" >Sign up</RouterLink></span></div>
+          </form>
+
+        </div>
+
       </div>
-    
-      <div class="p-inputgroup flex-1" style="margin:10px 0;">
-        <span class="p-inputgroup-addon">
-                <i class="pi pi-lock"></i>
-        </span>  
-        <Password placeholder="Enter Password" v-model="stores.loginForm.password" toggleMask  />
-      </div>
-      <div class="p-inputgroup flex-1" style="margin:10px 0;">
-          <Button type="submit" label="login" @click="loginAction()" raised />
-      </div>
-      <div class="col-12">
-        Dont have an account? <RouterLink to="register"> Sign up</RouterLink>
-      </div>
-    </div>
-  
-  </div> 
+
+</div>
 </template>
 
 <style scoped >
-.row {
-  display: flex;
-  flex-direction: row;
-  justify-content: center
-}
 </style>

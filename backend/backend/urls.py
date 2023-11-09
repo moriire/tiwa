@@ -4,7 +4,7 @@ from django.urls import path, re_path, include
 from django.shortcuts import redirect
 from django.conf import settings
 from django.conf.urls.static import static
-from upload.views import UploadViews, ProductViews, CategoryViews
+from upload.views import UploadViews, ProductViews, CategoryViews, ProductWithImagesViews
 from dj_rest_auth.registration.views import RegisterView
 from user.models import CustomRegisterSerializer
 from rest_framework import permissions
@@ -39,6 +39,7 @@ router = DefaultRouter()
 router.register("category", CategoryViews)
 router.register("upload", UploadViews)
 router.register("product", ProductViews)
+router.register("products", ProductWithImagesViews)
 urlpatterns = [
     path("", index, name="home"),
     path('admin/', admin.site.urls),

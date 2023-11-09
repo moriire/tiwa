@@ -2,11 +2,14 @@
 
 import App from "./App.vue";
 import { createApp } from 'vue'
-import PrimeVue from 'primevue/config';
+//import PrimeVue from 'primevue/config';
 import { createPinia } from 'pinia'
 import router from "./router";
-import "primeflex/primeflex.css";
-import 'primevue/resources/themes/saga-blue/theme.css'; 
+import "/src/assets/css/style.css"
+import "/src/assets/css/bootstrap.min.css"
+
+//import "primeflex/primeflex.css";
+//import 'primevue/resources/themes/saga-blue/theme.css'; 
 
 //import "primevue/resources/themes/lara-light-teal/theme.css";
 //import "primevue/resources/primevue.min.css"; /* Deprecated */
@@ -14,7 +17,7 @@ import 'primevue/resources/themes/saga-blue/theme.css';
 //import "./style.css";
 //import "./flags.css";
 
-
+/*
 import AutoComplete from 'primevue/autocomplete';
 import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
@@ -214,8 +217,9 @@ app.component('TreeSelect', TreeSelect);
 app.component('TreeTable', TreeTable);
 app.component('TriStateCheckbox', TriStateCheckbox);
 app.component('VirtualScroller', VirtualScroller);
-
-app.use(PrimeVue, { styled: true, ripple: true })
+*/
+//app.use(PrimeVue, { styled: true, ripple: true })
+const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
