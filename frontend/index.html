@@ -1,27 +1,89 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html class="no-js" lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="shortcut icon" href="/src/assets/favicon.png">
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>ShopGrids - Bootstrap 5 eCommerce HTML Template.</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="src/assets/images/favicon.svg" />
 
-  <meta name="description" content="" />
-  <meta name="keywords" content="bootstrap, bootstrap4" />
-  <meta name="theme-color" content="#000000" />
-       <title>Tiwa 'n' Tiwa </title>
-	</head>
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="src/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="src/assets/css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="src/assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="src/assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="src/assets/css/main.css" />
 
-	<body>
+</head>
 
-		<div id="app"></div>
-		
-		
-		<script defer type="module" src="/src/assets/js/bootstrap.bundle.min.js"></script>
-		<script defer type="module" src="/src/assets/js/tiny-slider.js"></script>
-		<script defer type="module" src="/src/assets/js/custom.js"></script>
-        <script type="module" src="/src/main.js"></script>
-        
-    
-	</body>
+<body>
+    <!--[if lte IE 9]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+        your experience and security.
+      </p>
+    <![endif]-->
 
+    <!-- Preloader -->
+    <!--div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div-->
+    <!-- /End Preloader -->
+    <div id="app"></div>
+   
+
+    <!-- ========================= JS here ========================= -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/tiny-slider.js"></script>
+    <script src="assets/js/glightbox.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script type="text/javascript">
+        //========= Hero Slider 
+        tns({
+            container: '.hero-slider',
+            slideBy: 'page',
+            autoplay: true,
+            autoplayButtonOutput: false,
+            mouseDrag: true,
+            gutter: 0,
+            items: 1,
+            nav: false,
+            controls: true,
+            controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
+        });
+
+        //======== Brand Slider
+        tns({
+            container: '.brands-logo-carousel',
+            autoplay: true,
+            autoplayButtonOutput: false,
+            mouseDrag: true,
+            gutter: 15,
+            nav: false,
+            controls: false,
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                540: {
+                    items: 3,
+                },
+                768: {
+                    items: 5,
+                },
+                992: {
+                    items: 6,
+                }
+            }
+        });
+    </script>
+</body>
+<script type="module" src="src/main.js"></script>
 </html>

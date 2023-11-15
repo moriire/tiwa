@@ -69,7 +69,6 @@
     import { ref, onMounted, watch } from "vue";
     import { useRouter, useRoute, RouterView } from "vue-router";
     import { useAuthStore } from "@/stores/auth";
-    //import ThemeSwitcher from '@/views/components/ThemeSwitcher.vue';
     const router = useRouter();
     const route = useRoute();
     const authStore = useAuthStore()

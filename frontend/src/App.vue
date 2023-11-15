@@ -1,4 +1,6 @@
 <template>
+<PageHeader />
+<PageHero />
     <RouterView/>
 </template>
 
@@ -6,7 +8,8 @@
 import { ref, onMounted, watch } from "vue";
 import { useRouter, useRoute, RouterView } from "vue-router";
 import { useAuthStore } from "./stores/auth";
-//import ThemeSwitcher from './components/ThemeSwitcher.vue';
+import PageHeader from './components/PageHeader.vue';
+import PageHero from './components/PageHero.vue';
 
 const router = useRouter();
 const route = useRoute();

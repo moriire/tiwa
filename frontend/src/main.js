@@ -5,8 +5,8 @@ import { createApp } from 'vue'
 //import PrimeVue from 'primevue/config';
 import { createPinia } from 'pinia'
 import router from "./router";
-import "/src/assets/css/style.css"
-import "/src/assets/css/bootstrap.min.css"
+//import "/src/assets/css/style.css"
+//import "/src/assets/css/bootstrap.min.css"
 
 //import "primeflex/primeflex.css";
 //import 'primevue/resources/themes/saga-blue/theme.css'; 
