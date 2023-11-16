@@ -11,7 +11,6 @@ import { useAuthStore } from '@/stores/auth';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   linkActiveClass: "active",
-  
   routes: [
     {
       path: '/auth',
@@ -35,7 +34,7 @@ const router = createRouter({
           component: LoginView
         },
       ],
-      meta: { requiresAuth: true },
+      //meta: { requiresAuth: true },
     },
     {
       path: "/",

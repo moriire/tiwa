@@ -1,6 +1,4 @@
 <template>
-<PageHeader />
-<PageHero />
     <RouterView/>
 </template>
 
