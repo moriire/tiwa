@@ -285,7 +285,7 @@
 </template>
 <script setup>
 import TrendingProducts from "@/components/TrendingProducts.vue";
-//import PageHero from "@/components/PageHero";
+import PageHero from "@/components/PageHero.vue";
 import ProductCategory from "@/views/components/ProductCategory.vue";
   import { useRouter, useRoute, RouterView, RouterLink } from "vue-router";
   import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -301,19 +301,3 @@ onMounted(()=>{
  category.getCategories()
  })
 </script>
-<style scoped>
-ul.headline{
-	margin: 0;
-	padding-left:0;
-	display: flex;
-	justify-content: start;
-	list-style-type: disc;
-}
-.headline li{
-	display: inline-block;
-	font-size: 23px;
-	font-weight: 800;
-	color: #ffff;
-	margin-right: 20px;
-}
-</style>

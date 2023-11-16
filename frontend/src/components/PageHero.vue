@@ -5,6 +5,7 @@ defineProps({
     required: true
   }
 })*/
+  
 </script>
 
 <template>
@@ -34,7 +35,7 @@ defineProps({
                             <!-- End Single Slider -->
                             <!-- Start Single Slider -->
                             <div class="single-slider"
-                                style="background-image: url(assets/images/hero/slider-bg2.jpg);">
+                                style="background-image: url(src/assets/images/hero/slider-bg2.jpg);">
                                 <div class="content">
                                     <h2><span>Big Sale Offer</span>
                                         Get the Best Deal on CCTV Camera
@@ -57,7 +58,7 @@ defineProps({
                         <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
                             <!-- Start Small Banner -->
                             <div class="hero-small-banner"
-                                style="background-image: url('assets/images/hero/slider-bnr.jpg');">
+                                style="background-image: url(src/assets/images/hero/slider-bnr.jpg);">
                                 <div class="content">
                                     <h2>
                                         <span>New line required</span>

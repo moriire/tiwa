@@ -246,7 +246,6 @@
                                 <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item" v-for="(item, index) in items" v-bind:key="index">
                                     <RouterLink :to="item.route" aria-label="Toggle navigation">{{ item.label }}</RouterLink>
-                                        <a href="index.html" class=".active" aria-label="Toggle navigation"></a>
                                     </li>
                                    
                                 </ul>
