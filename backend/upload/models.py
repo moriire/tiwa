@@ -4,14 +4,11 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from rest_framework.serializers import ModelSerializer
 import uuid
+User = get_user_model()
 
 def upload_location(instance, filename):
-    import os
-    return os.path.join(
-            instance.product.category.name,
-            instance.product.name
-    )
-User = get_user_model()
+    y = "_".join(instance.product.name.split(" "))
+    return f"products/{y}/{filename}"
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -68,7 +65,7 @@ class CategoryNameSerializer(ModelSerializer):
 class UploadSerializer(ModelSerializer):
     class Meta:
         model = Upload
-        fields = "__all__"
+        fields = ("img", "product",)
 
 class SingleImageUploadSerializer(ModelSerializer):
     class Meta:

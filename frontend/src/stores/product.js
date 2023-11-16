@@ -34,12 +34,19 @@ export const useProductStore = defineStore('product', () => {
         const auth = JSON.parse(localStorage.getItem("user"))
             try {
     
-                const res = await axios.get(`${BASE}/api/product/`)
+                const res = await axios.get(`${BASE}/api/products/`)
                 product_data.value = res.data
             } catch(errors){
                 console.log(errors)
                 //return errors.response
             }
         };
-  return { CreateProduct, getProducts, category_data, product_data }
+        const selectedProducts = ref([]);
+        const selectedCount = ref(0);
+        const selectProduct = (d) => {
+            selectedProducts.value.push(d)
+            selectedCount.value=+new Set(selectedProducts.value).size
+        }
+
+  return { CreateProduct, getProducts, category_data, product_data, selectedProducts, selectedCount, selectProduct}
 })

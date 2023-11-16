@@ -13,20 +13,20 @@
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-12"
-                 v-for="product in productStore.product_data" v-bind:key="product.id">
+                 v-for="product in productStore.product_data" v-bind:key="product.product.id">
                     <!-- Start Single Product -->
-                    <div class="single-product">
+                    <div class="single-product" >
                         <div class="product-image">
-                            <img src="/src/assets/images/products/product-8.jpg" alt="#">
-                            <span class="sale-tag" v-show="product.discount>0">-25%</span>
+                            <img :src="product.images[0].img" alt="#">
+                            <span class="sale-tag" v-show="product.product.discount>0">-25%</span>
                             <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                <a type="button" @click="productStore.selectProduct(product)" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
                         </div>
                         <div class="product-info">
-                            <span class="category">Laptop</span>
+                            <span class="category">{{ product.product.category.name }}</span>
                             <h4 class="title">
-                                <a href="product-grids.html">{{ product.name }}</a>
+                                <a href="product-grids.html">{{ product.product.name }}</a>
                             </h4>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -36,8 +36,8 @@
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><span>5.0 Review(s)</span></li>
                             </ul>
-                            <div class="price">
-                                <span>&#8358; {{ product.price }}</span>
+                            <div class="price"> 
+                                <span>&#8358;{{ product.product.price }}</span>
                             </div>
                         </div>
                     </div>
@@ -56,5 +56,4 @@ const productStore = useProductStore();
 onMounted(() => {
     productStore.getProducts()
 });
-
 </script>

@@ -3,10 +3,15 @@
     import { ref, onMounted, watch } from "vue";
     import { useRouter, useRoute, RouterView } from "vue-router";
     import { useAuthStore } from "@/stores/auth";
+    import { useProductStore } from '@/stores/product';
+    const productStore = useProductStore();
     const router = useRouter();
     const route = useRoute();
     const authStore = useAuthStore()
     const active = ref(0);
+    const uniqueCartItems = (d) => {
+        return new Set(d).values()
+    }
     const items = ref([
       {
           label: 'Home',
@@ -175,41 +180,30 @@
                                 <div class="cart-items">
                                     <a href="javascript:void(0)" class="main-btn">
                                         <i class="lni lni-cart"></i>
-                                        <span class="total-items">2</span>
+                                        <span class="total-items">{{  productStore.selectedCount }}</span>
                                     </a>
                                     <!-- Shopping Item -->
                                     <div class="shopping-item">
                                         <div class="dropdown-cart-header">
-                                            <span>2 Items</span>
+                                            <span>{{  productStore.selectedCount }} Items</span>
                                             <a href="cart.html">View Cart</a>
                                         </div>
                                         <ul class="shopping-list">
-                                            <li>
+                                            <li v-for="(cart, index) in uniqueCartItems(productStore.selectedProducts)" v-bind:key="index">
                                                 <a href="javascript:void(0)" class="remove" title="Remove this item"><i
                                                         class="lni lni-close"></i></a>
                                                 <div class="cart-img-head">
                                                     <a class="cart-img" href="product-details.html"><img
-                                                            src="/src/assets/images/header/cart-items/item1.jpg" alt="#"></a>
+                                                            :src="cart.images[0].img" alt="#"></a>
                                                 </div>
 
                                                 <div class="content">
                                                     <h4><a href="product-details.html">
-                                                            Apple Watch Series 6</a></h4>
-                                                    <p class="quantity">1x - <span class="amount">$99.00</span></p>
+                                                            {{ cart.product.name }}</a></h4>
+                                                    <p class="quantity">1x - <span class="amount">{{ cart.product.price }}</span></p>
                                                 </div>
                                             </li>
-                                            <li>
-                                                <a href="javascript:void(0)" class="remove" title="Remove this item"><i
-                                                        class="lni lni-close"></i></a>
-                                                <div class="cart-img-head">
-                                                    <a class="cart-img" href="product-details.html"><img
-                                                            src="/src/assets/images/header/cart-items/item2.jpg" alt="#"></a>
-                                                </div>
-                                                <div class="content">
-                                                    <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4>
-                                                    <p class="quantity">1x - <span class="amount">$35.00</span></p>
-                                                </div>
-                                            </li>
+                                           
                                         </ul>
                                         <div class="bottom">
                                             <div class="total">
