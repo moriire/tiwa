@@ -13,7 +13,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-12"
-                 v-for="product in productStore.product_data" v-bind:key="product.product.id">
+                 v-for="product in productStore.product_data" v-bind:key="product.id">
                     <!-- Start Single Product -->
                     <div class="single-product" >
                         <div class="product-image">
@@ -26,7 +26,7 @@
                         <div class="product-info">
                             <span class="category">{{ product.product.category.name }}</span>
                             <h4 class="title">
-                                <a href="product-grids.html">{{ product.product.name }}</a>
+                                <RouterLink :to="{name: 'detail', params: {pk: product.id}}">{{ product.product.name }}</RouterLink>
                             </h4>
                             <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -37,7 +37,7 @@
                                 <li><span>5.0 Review(s)</span></li>
                             </ul>
                             <div class="price"> 
-                                <span>&#8358;{{ product.product.price }}</span>
+                                <span>&#8358;{{ product.product.discounted_price }}</span>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,9 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useProductStore } from '@/stores/product';
+import { RouterLink } from "vue-router";
 const productStore = useProductStore();
+//const route = useRoute();
 onMounted(() => {
     productStore.getProducts()
 });

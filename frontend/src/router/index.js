@@ -1,6 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory} from 'vue-router'
 import HomeView from '../views/HomeView.vue';
-import AddProductView from '../views/AddProductView.vue'
+import AddProductView from '../views/AddProductView.vue';
+import ProductDetailsView from '@/views/ProductDetailsView.vue';
 import ProductsByCategoryView from '../views/ProductsByCategoryView.vue';
 import ProductsView from "../views/ProductsView.vue";
 import UploadView from '../views/UploadView.vue';
@@ -9,7 +10,7 @@ import {LoginView, RegisterView, ProfileView, AuthLayout} from '../views/auth';
 import { useAuthStore } from '@/stores/auth';
  
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),//(import.meta.env.BASE_URL),
   linkActiveClass: "active",
   routes: [
     {
@@ -45,6 +46,11 @@ const router = createRouter({
           path: '',
           name: 'home',
           component: HomeView,
+        },
+        {
+          path: 'detail/:pk',
+          name: 'detail',
+          component: ProductDetailsView,
         },
         {
           path: 'profile',

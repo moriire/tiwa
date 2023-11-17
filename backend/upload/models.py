@@ -34,7 +34,15 @@ class Product(models.Model):
     category = models.ForeignKey(Category, related_name="product_catgrory", on_delete=models.CASCADE)
     name = models.CharField(max_length=60)
     price = models.FloatField()
+    desc = models.TextField(default='our new product is good')
     discount = models.IntegerField(default=0)
+    def __str__(self):
+        return self.name
+
+    def discounted_price(self):
+        return self.price - (self.price*self.discount)/100
+
+    
 
 class Upload(models.Model):
     product = models.ForeignKey(Product, related_name="product_upload", on_delete=models.CASCADE, null=True, blank=True)
@@ -81,7 +89,7 @@ class ProductSerializer(ModelSerializer):
     category = CategoryNameSerializer()
     class Meta:
         model = Product
-        fields = "__all__"
+        fields = ('id', 'name', 'category', 'price', 'discount', 'discounted_price')
 
 class ProductWithImagesSerializer(ModelSerializer):
     product = ProductSerializer()
