@@ -12,6 +12,7 @@ import { useAuthStore } from '@/stores/auth';
 const router = createRouter({
   history: createWebHashHistory(),//(import.meta.env.BASE_URL),
   linkActiveClass: "active",
+  base: import.meta.env.BASE_URL,
   routes: [
     {
       path: '/auth',
@@ -65,11 +66,11 @@ const router = createRouter({
           meta: { requiresAuth: true },
         },
         {
-          path: 'products',
-          name: 'products',
-          //component: ProductsByCategoryView,
-          component: ProductsView,
-          meta: { requiresAuth: true },
+          path: ':category/products',
+          name: 'products-by-category',
+          component: ProductsByCategoryView,
+          //component: ProductsView,
+          //meta: { requiresAuth: true },
         },
         {
           path: 'upload',

@@ -1,62 +1,38 @@
-<script setup>/*
-defineProps({
-  msg: {
-    type: String,
-    required: true
-  }
-})*/
-  
-</script>
-
 <template>
     <!-- Start Hero Area -->
-    <section class="hero-area">
+    <!--section class="hero-area">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-12 custom-padding-right">
-                    <div class="slider-head">
-                        <!-- Start Hero Slider -->
-                        <div class="hero-slider">
-                            <!-- Start Single Slider -->
-                            <div class="single-slider"
-                                style="background-image: url(src/assets/images/hero/slider-bg1.jpg);">
+                    <div class="slider-head" >
+
+                        
+                        <div class="hero-slider" ref="heroSlider">
+                        
+                            <div 
+                            class="single-slider" v-for="product in products" v-bind:key="product.product.id" 
+                                :style="`background-image: url(${product.images[0].img });`">
                                 <div class="content">
-                                    <h2><span>No restocking fee ($35 savings)</span>
-                                        M75 Sport Watch
+                                    <h2>
+                                        <span>{{ product.product.name }}</span>
                                     </h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.</p>
-                                    <h3><span>Now Only</span> $320.99</h3>
+                                    <p>{{ product.product.name }}</p>
+                                    <h3><span>Now Only</span> ${{ product.product.discounted_price }}</h3>
                                     <div class="button">
                                         <a href="product-grids.html" class="btn">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Single Slider -->
-                            <!-- Start Single Slider -->
-                            <div class="single-slider"
-                                style="background-image: url(src/assets/images/hero/slider-bg2.jpg);">
-                                <div class="content">
-                                    <h2><span>Big Sale Offer</span>
-                                        Get the Best Deal on CCTV Camera
-                                    </h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.</p>
-                                    <h3><span>Combo Only:</span> $590.00</h3>
-                                    <div class="button">
-                                        <a href="product-grids.html" class="btn">Shop Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Slider -->
+                           
+                           
                         </div>
-                        <!-- End Hero Slider -->
+                        
                     </div>
                 </div>
                 <div class="col-lg-4 col-12">
                     <div class="row">
                         <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
-                            <!-- Start Small Banner -->
+                            
                             <div class="hero-small-banner"
                                 style="background-image: url(src/assets/images/hero/slider-bnr.jpg);">
                                 <div class="content">
@@ -67,10 +43,10 @@ defineProps({
                                     <h3>$259.99</h3>
                                 </div>
                             </div>
-                            <!-- End Small Banner -->
+                            
                         </div>
                         <div class="col-lg-12 col-md-6 col-12">
-                            <!-- Start Small Banner -->
+                            
                             <div class="hero-small-banner style2">
                                 <div class="content">
                                     <h2>Weekly Sale!</h2>
@@ -80,12 +56,39 @@ defineProps({
                                     </div>
                                 </div>
                             </div>
-                            <!-- Start Small Banner -->
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </section-->
     <!-- End Hero Area -->
 </template>
+<script setup>
+import { tns } from 'tiny-slider/src/tiny-slider';
+import { ref, onMounted, watch, nextTick } from "vue"; 
+import { useProductStore } from "@/stores/product";
+const heroSlider = ref(null);
+const productStore = useProductStore();
+const products = productStore.getClassedProduct
+
+onMounted(() => {
+    document.addEventListener('DOMContentLoaded', function() {
+    if (heroSlider.value) {
+      tns({
+        container: heroSlider.value,
+        slideBy: 'page',
+        autoplay: true,
+        autoplayButtonOutput: false,
+        mouseDrag: true,
+        gutter: 0,
+        items: 1,
+        nav: false,
+        controls: true,
+        controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
+    });
+    }
+})
+}) 
+</script>

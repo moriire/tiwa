@@ -28,14 +28,14 @@
                             <h4 class="title">
                                 <RouterLink :to="{name: 'detail', params: {pk: product.id}}">{{ product.product.name }}</RouterLink>
                             </h4>
-                            <ul class="review">
+                            <!--ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><span>5.0 Review(s)</span></li>
-                            </ul>
+                            </ul-->
                             <div class="price"> 
                                 <span>&#8358;{{ product.product.discounted_price }}</span>
                             </div>

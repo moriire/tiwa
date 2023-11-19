@@ -13,11 +13,11 @@ class UploadViews(ModelViewSet):
     serializer_class = UploadSerializer
 
 class ProductViews(ModelViewSet):
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().select_related("category")
     serializer_class = ProductSerializer
 
 class ProductWithImagesViews(ModelViewSet):
-    queryset = ProductWithImages.objects.all()
+    queryset = ProductWithImages.objects.all().prefetch_related("images").select_related("product")
     serializer_class = ProductWithImagesSerializer
 
     def list(self, request):

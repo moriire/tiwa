@@ -29,6 +29,9 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
+    class Status(models.TextChoices):
+        trending = "Trending"
+        promoted = "Promoted"
     id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False) 
     user = models.ForeignKey(User, related_name="user_product", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="product_catgrory", on_delete=models.CASCADE)
@@ -36,6 +39,7 @@ class Product(models.Model):
     price = models.FloatField()
     desc = models.TextField(default='our new product is good')
     discount = models.IntegerField(default=0)
+    status = models.CharField(max_length=12, choices=Status.choices)
     def __str__(self):
         return self.name
 
@@ -55,7 +59,6 @@ class Upload(models.Model):
 class ProductWithImages(models.Model):
     product = models.ForeignKey(Product, related_name="product_with_images_upload", on_delete=models.CASCADE, null=True, blank=True)
     images = models.ManyToManyField(Upload, related_name="product_with_images")
-
     def __str__(self):
         return self.product
 
@@ -89,7 +92,7 @@ class ProductSerializer(ModelSerializer):
     category = CategoryNameSerializer()
     class Meta:
         model = Product
-        fields = ('id', 'name', 'category', 'price', 'discount', 'discounted_price')
+        fields = ('id', 'name', 'desc', 'category', 'price', 'discount', 'discounted_price', 'status')
 
 class ProductWithImagesSerializer(ModelSerializer):
     product = ProductSerializer()

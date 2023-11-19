@@ -1,9 +1,12 @@
  <script setup>
- import CategoriesNav from "@/components/CategoriesNav.vue"
+ import CategoriesNav from "@/components/CategoriesNav.vue";
+ import SearchBar from "@/components/SearchBar.vue";
     import { ref, onMounted, watch } from "vue";
     import { useRouter, useRoute, RouterView } from "vue-router";
     import { useAuthStore } from "@/stores/auth";
     import { useProductStore } from '@/stores/product';
+    import 'tiny-slider/dist/tiny-slider.css'; // Import Tiny Slider styles
+    import { tns } from 'tiny-slider/src/tiny-slider';
     const productStore = useProductStore();
     const router = useRouter();
     const route = useRoute();
@@ -42,6 +45,18 @@
     
     onMounted(() => {
       active.value = items.value.findIndex((item) => route.path === router.resolve(item.route).path);
+      /*tns({
+        container: '.hero-slider',
+        slideBy: 'page',
+        autoplay: true,
+        autoplayButtonOutput: false,
+        mouseDrag: true,
+        gutter: 0,
+        items: 1,
+        nav: false,
+        controls: true,
+        controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
+    });*/
     })
     
     watch(
@@ -135,32 +150,7 @@
                         <!-- End Header Logo -->
                     </div>
                     <div class="col-lg-5 col-md-7 d-xs-none">
-                        <!-- Start Main Menu Search -->
-                        <div class="main-menu-search">
-                            <!-- navbar search start -->
-                            <div class="navbar-search search-style-5">
-                                <div class="search-select">
-                                    <div class="select-position">
-                                        <select id="select1">
-                                            <option selected>All</option>
-                                            <option value="1">option 01</option>
-                                            <option value="2">option 02</option>
-                                            <option value="3">option 03</option>
-                                            <option value="4">option 04</option>
-                                            <option value="5">option 05</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="search-input">
-                                    <input type="text" placeholder="Search">
-                                </div>
-                                <div class="search-btn">
-                                    <button><i class="lni lni-search-alt"></i></button>
-                                </div>
-                            </div>
-                            <!-- navbar search Ends -->
-                        </div>
-                        <!-- End Main Menu Search -->
+                        <SearchBar></SearchBar>
                     </div>
                     <div class="col-lg-4 col-md-2 col-5">
                         <div class="middle-right-area">

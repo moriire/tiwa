@@ -1,6 +1,54 @@
 <template>
     
 <PageHero />
+ <!-- Start Shipping Info -->
+ <section class="shipping-info">
+        <div class="container">
+            <ul>
+                <!-- Free Shipping -->
+                <li>
+                    <div class="media-icon">
+                        <i class="lni lni-delivery"></i>
+                    </div>
+                    <div class="media-body">
+                        <h5>Free Shipping</h5>
+                        <span>On order over $99</span>
+                    </div>
+                </li>
+                <!-- Money Return -->
+                <li>
+                    <div class="media-icon">
+                        <i class="lni lni-support"></i>
+                    </div>
+                    <div class="media-body">
+                        <h5>24/7 Support.</h5>
+                        <span>Live Chat Or Call.</span>
+                    </div>
+                </li>
+                <!-- Support 24/7 -->
+                <li>
+                    <div class="media-icon">
+                        <i class="lni lni-credit-cards"></i>
+                    </div>
+                    <div class="media-body">
+                        <h5>Online Payment.</h5>
+                        <span>Secure Payment Services.</span>
+                    </div>
+                </li>
+                <!-- Safe Payment -->
+                <li>
+                    <div class="media-icon">
+                        <i class="lni lni-reload"></i>
+                    </div>
+                    <div class="media-body">
+                        <h5>Easy Return.</h5>
+                        <span>Hassle Free Shopping.</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!-- End Shipping Info -->
 <TrendingProducts />
 	
     <!-- Start Call Action Area -->
@@ -60,10 +108,10 @@
     <!-- End Banner Area -->
 
     <!-- Start Shipping Info -->
-    <section class="shipping-info">
+    <!--section class="shipping-info">
         <div class="container">
             <ul>
-                <!-- Free Shipping -->
+               
                 <li>
                     <div class="media-icon">
                         <i class="lni lni-delivery"></i>
@@ -73,7 +121,7 @@
                         <span>On order over $99</span>
                     </div>
                 </li>
-                <!-- Money Return -->
+            
                 <li>
                     <div class="media-icon">
                         <i class="lni lni-support"></i>
@@ -83,7 +131,7 @@
                         <span>Live Chat Or Call.</span>
                     </div>
                 </li>
-                <!-- Support 24/7 -->
+                
                 <li>
                     <div class="media-icon">
                         <i class="lni lni-credit-cards"></i>
@@ -93,7 +141,7 @@
                         <span>Secure Payment Services.</span>
                     </div>
                 </li>
-                <!-- Safe Payment -->
+                
                 <li>
                     <div class="media-icon">
                         <i class="lni lni-reload"></i>
@@ -105,14 +153,14 @@
                 </li>
             </ul>
         </div>
-    </section>
+    </section-->
     <!-- End Shipping Info -->
 
 	
     <!-- Start Footer Area -->
     <footer class="footer">
         <!-- Start Footer Top -->
-        <div class="footer-top">
+        <!--div class="footer-top">
             <div class="container">
                 <div class="inner-content">
                     <div class="row">
@@ -142,17 +190,19 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div-->
         <!-- End Footer Top -->
         <!-- Start Footer Middle -->
         <div class="footer-middle">
             <div class="container">
                 <div class="bottom-inner">
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <div class="col-lg-4 col-md-6 col-12">
+                            
                             <!-- Single Widget -->
                             <div class="single-footer f-contact">
                                 <h3>Get In Touch With Us</h3>
+                               
                                 <p class="phone">Phone: +1 (900) 33 169 7720</p>
                                 <ul>
                                     <li><span>Monday-Friday: </span> 9.00 am - 8.00 pm</li>
@@ -164,30 +214,8 @@
                             </div>
                             <!-- End Single Widget -->
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer our-app">
-                                <h3>Our Mobile App</h3>
-                                <ul class="app-btn">
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <i class="lni lni-apple"></i>
-                                            <span class="small-title">Download on the</span>
-                                            <span class="big-title">App Store</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <i class="lni lni-play-store"></i>
-                                            <span class="small-title">Download on the</span>
-                                            <span class="big-title">Google Play</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-12">
+                        
+                        <div class="col-lg-4 col-md-6 col-12">
                             <!-- Single Widget -->
                             <div class="single-footer f-link">
                                 <h3>Information</h3>
@@ -201,7 +229,7 @@
                             </div>
                             <!-- End Single Widget -->
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <div class="col-lg-4 col-md-6 col-12">
                             <!-- Single Widget -->
                             <div class="single-footer f-link">
                                 <h3>Shop Departments</h3>
@@ -260,44 +288,40 @@
     <a href="#" class="scroll-top">
         <i class="lni lni-chevron-up"></i>
     </a>
-  <!--swiper
-    :effect="'coverflow'"
-    :grabCursor="true"
-    :centeredSlides="true"
-    :slidesPerView="'auto'"
-    :coverflowEffect="{
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: true,
-    }"
-    :pagination="true"
-    :modules="modules"
-    class="mySwiper"
-  >
-    <swiper-slide v-for="cat in category.categories" v-bind:key="cat.id">
-      <router-link :to="{name:'upload'}">
-      <img :src="cat.thumb" />
-      </router-link>
-    </swiper-slide>
-  </swiper-->
 </template>
 <script setup>
+import 'tiny-slider/dist/tiny-slider.css'; // Import Tiny Slider styles
+import { tns } from 'tiny-slider/src/tiny-slider';
 import TrendingProducts from "@/components/TrendingProducts.vue";
 import PageHero from "@/components/PageHero.vue";
-import ProductCategory from "@/views/components/ProductCategory.vue";
-  import { useRouter, useRoute, RouterView, RouterLink } from "vue-router";
-  import { Swiper, SwiperSlide } from 'swiper/vue';
 import { onMounted, ref } from "vue";
-  import 'swiper/css';
-
-  import 'swiper/css/effect-coverflow';
-  import 'swiper/css/pagination';
 import { useCategoryStore } from "@/stores/categories";
-  import { EffectCoverflow, Pagination } from 'swiper/modules';
 const category = useCategoryStore();
 onMounted(()=>{
- category.getCategories()
+ category.getCategories()/*
+ tns({
+        container: '.brands-logo-carousel',
+        autoplay: true,
+        autoplayButtonOutput: false,
+        mouseDrag: true,
+        gutter: 15,
+        nav: false,
+        controls: false,
+        responsive: {
+            0: {
+                items: 1,
+            },
+            540: {
+                items: 3,
+            },
+            768: {
+                items: 5,
+            },
+            992: {
+                items: 6,
+            }
+        }
+    })*/
+
  })
 </script>

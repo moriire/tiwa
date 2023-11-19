@@ -1,27 +1,35 @@
 <script setup>
+import axios from "axios"
 import { useProductStore } from "@/stores/product";
-import { ref, onMounted, watchEffect } from "vue";
+import { ref,reactive, onMounted, watchEffect, watch, onBeforeMount,  onServerPrefetch} from "vue";
 import { RouterLink, useRoute } from "vue-router";
-const product = ref({});
-const images = ref([]);
-const productStore = useProductStore();
+
 const route = useRoute();
+const loading = ref(false);
+const singleProductItem = ref(null);
+const param = ref(route.params.pk);
+        const getSingleProduct = async (b)=>{
+            loading.value = true;
+          //const auth = JSON.parse(localStorage.getItem("user"))
+              try {
+                  const res = await axios.get(`http://127.0.0.1:8000/api/products/${b}/`)
+                  singleProductItem.value = await res.data//,
+                  //singleProductItem.images = await res.data.images,
+                  //singleProductItem.category = await res.data.category
+                  
+              } catch(errors){
+                  console.log(errors)
+                  alert(errors)
+                  //return errors.response
+              } finally{
+                loading.value = false
+              }
+          };
+//onServerPrefetch(getSingleProduct()
+//)
+onMounted(getSingleProduct(param.value));
 
-onMounted(
-
-    productStore.getSingleProduct(route.params.pk),
-    product.value = productStore.singleProductItem.product,
-    images.value = productStore.singleProductItem.images
-);
-watchEffect(
-    route.params.pk,
-    productStore.getSingleProduct,//(route.params.pk),
-    {immediate: true}
-    //productStore.singleProductItem
-    //products,
-    //images
-)
-
+//watchEffect(route.params, getSingleProduct())//, {immediate: true})
 </script>
 <template>
 
@@ -46,6 +54,16 @@ watchEffect(
     </div>
     <!-- End Breadcrumbs -->
     <!-- Start Item Details -->
+<section v-if="loading" class="preloader">
+
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>{{ loading }}
+                <span></span>
+            </div>
+        </div>
+          
+</section>
 
     <section class="item-details section">
         <div class="container">
@@ -56,21 +74,20 @@ watchEffect(
                         <div class="product-images">
                             <main id="gallery">
                                 <div class="main-img">
-                                    <img v-for="img in images" :src="img.img" cid=".current" alt="#" v-bind:key="img.id">
+                                    <img v-for="img in singleProductItem.images" :src="img.img" cid=".current" alt="#" v-bind:key="img.id">
                                 </div>
                                 <div class="images">
-                                    <img  v-for="img in images" :src="img.img" v-bind:key="img.id" class="img" alt="#">
+                                    <img  v-for="img in singleProductItem.images" :src="img.img" v-bind:key="img.id" class="img" alt="#">
                                 </div>
                             </main>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-12">
-                        <div class="product-info">
-                            <h2 class="title">{{ product.name }}</h2>
-                            <p class="category"><i class="lni lni-tag"></i> Drones:<a href="javascript:void(0)">Action
-                                    cameras</a></p>
-                            <h3 class="price">&#8358;{{ product.discounted_price }}<span>&#8358; {{ product.price }} </span></h3>
-                            <p class="info-text">{{ product.desc }}.</p>
+                        <div class="product-info" >
+                            <h2 class="title">{{ singleProductItem.product.name }}</h2>
+                            <p class="category"><i class="lni lni-tag"></i> Drones:<a href="javascript:void(0)">{{ singleProductItem }}</a></p>
+                            <h3 class="price">&#8358;{{ singleProductItem.product.discounted_price }}<span>&#8358; {{ singleProductItem.product.price }} </span></h3>
+                            <p class="info-text">{{ singleProductItem.product.desc }}.</p>
                             <div class="row">
                                 <div class="col-lg-8 col-md-8 col-12">
                                     <div class="form-group">
@@ -154,5 +171,12 @@ watchEffect(
             </div-->
         </div>
     </section>
+    <!--section v-else>loading ........... {{ singleProductItem }}</section-->
     <!-- End Item Details -->
 </template>
+<style scoped>
+.preloader-false{
+    opacity: 0;
+    display: none;
+}
+</style>
