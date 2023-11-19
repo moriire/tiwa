@@ -1,37 +1,3 @@
-<script setup>
-import axios from "axios"
-import { useProductStore } from "@/stores/product";
-import { ref, onMounted, watchEffect, watch, onBeforeMount,  onServerPrefetch} from "vue";
-import { RouterLink, useRoute } from "vue-router";
-
-const BASE = import.meta.env.VITE_BACKEND_API_URL;
-const route = useRoute();
-const loading = ref(false);
-const singleProductItem = ref(null);
-const param = ref(route.params.pk);
-
-        const getSingleProduct = async (b)=>{
-            loading.value = true;
-          //const auth = JSON.parse(localStorage.getItem("user"))
-              try {
-                  const res = await axios.get(`${BASE}/api/products/${b}/`)
-                  singleProductItem.value = await res.data//,
-                  //singleProductItem.images = await res.data.images,
-                  //singleProductItem.category = await res.data.category
-                  
-              } catch(errors){
-                  console.log(errors)
-                  alert(errors)
-                  //return errors.response
-              } finally{
-                loading.value = false
-              }
-          };
-          onMounted(getSingleProduct(param.value));
-watch(()=>route.params, getSingleProduct)
-const quantity = ref(1)
-const price = ref(0)
-</script>
 <template>
 
     <!-- Start Breadcrumbs -->
@@ -73,9 +39,9 @@ const price = ref(0)
                 <div class="row align-items-center" >
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="product-images">
-                            <main id="gallery">
+                            <main id="gallery" ref="gallerySlider">
                                 <div class="main-img">
-                                    <img v-for="img in singleProductItem.images" :src="img.img" cid=".current" alt="#" v-bind:key="img.id">
+                                    <img :src="singleProductItem.images[0].img" id=".current" alt="#">
                                 </div>
                                 <div class="images">
                                     <img  v-for="img in singleProductItem.images" :src="img.img" v-bind:key="img.id" class="img" alt="#">
@@ -173,6 +139,58 @@ const price = ref(0)
     <!--section v-else>loading ........... {{ singleProductItem }}</section-->
     <!-- End Item Details -->
 </template>
+<script setup>
+import axios from "axios"
+import { useProductStore } from "@/stores/product";
+import { ref, onMounted, watchEffect, watch, onBeforeMount,  onServerPrefetch} from "vue";
+import { RouterLink, useRoute } from "vue-router";
+
+const BASE = import.meta.env.VITE_BACKEND_API_URL;
+const route = useRoute();
+const loading = ref(false);
+const singleProductItem = ref(null);
+const param = ref(route.params.pk);
+
+        const getSingleProduct = async (b)=>{
+            loading.value = true;
+             try {
+                  const res = await axios.get(`${BASE}/api/products/${b}/`)
+                  singleProductItem.value = await res.data
+              } catch(errors){
+                  console.log(errors)
+                  alert(errors)
+              } finally{
+                loading.value = false
+              }
+          };
+          onMounted(getSingleProduct(param.value));
+watch(()=>{route.params, getSingleProduct})
+onMounted(()=>{
+   
+    document.addEventListener('DOMContentLoaded', function() {
+        if (gallerySlider.value) {
+        const current = document.getElementById("current");
+        const opacity = 0.6;
+        const imgs = document.querySelectorAll(".img");
+        imgs.forEach(img => {
+            img.addEventListener("click", (e) => {
+                //reset opacity
+                imgs.forEach(img => {
+                    img.style.opacity = 1;
+                });
+                current.src = e.target.src;
+                //adding class 
+                //current.classList.add("fade-in");
+                //opacity
+                e.target.style.opacity = opacity;
+            });
+        });
+    }
+    })
+    })
+const quantity = ref(1)
+const price = ref(0)
+</script>
 <style scoped>
 .preloader-false{
     opacity: 0;
