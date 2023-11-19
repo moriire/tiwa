@@ -179,6 +179,21 @@ CSRF_ALLOWED_ORIGINS = [
     get("ALLOWED_ORIGINS") 
 ]
 CORS_ALLOW_CREDENTIALS = True
+
+
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
+from corsheaders.defaults import default_methods
+
+CORS_ALLOW_METHODS = (
+    *default_methods,
+)
 SITE_ID = int(get("SITE_ID"))
 REST_USE_JWT=True
 
