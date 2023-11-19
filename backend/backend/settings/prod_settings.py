@@ -15,7 +15,7 @@ DEBUG = not False
 
 ALLOWED_HOSTS = [
     "http://127.0.0.1",
-    "tiwa-backend.onrender.com"
+    get("RENDER_EXTERNAL_HOSTNAME")
     ]
 
 # Application definition
