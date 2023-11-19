@@ -9,10 +9,14 @@ import { useAuthStore } from "./stores/auth";
 import PageHeader from './components/PageHeader.vue';
 import PageHero from './components/PageHero.vue';
 
+import { useCategoryStore } from "@/stores/categories";
+const categoryStore = useCategoryStore()
+
 const router = useRouter();
 const route = useRoute();
 const authStore = useAuthStore()
 const active = ref(0);
+
 const items = ref([
   {
       label: 'Home',
@@ -42,6 +46,7 @@ const items = ref([
 ]);
 
 onMounted(() => {
+  categoryStore.getCategories();
   active.value = items.value.findIndex((item) => route.path === router.resolve(item.route).path);
 })
 

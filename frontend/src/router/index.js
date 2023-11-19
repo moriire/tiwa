@@ -73,6 +73,13 @@ const router = createRouter({
           //meta: { requiresAuth: true },
         },
         {
+          path: 'products',
+          name: 'products',
+          component: ProductsByCategoryView,
+          //component: ProductsView,
+          //meta: { requiresAuth: true },
+        },
+        {
           path: 'upload',
           name: 'upload',
           component: UploadView,

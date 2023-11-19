@@ -50,7 +50,7 @@ export const useProductStore = defineStore('product', () => {
               try {
                   const res = await axios.get(`${BASE}/api/products/?product__category__name=${a}`)
                   productbycategory_data.value = res.data
-                  
+                  //console.log(productbycategory_data)
               } catch(errors){
                   console.log(errors)
                   //return errors.response
@@ -92,5 +92,5 @@ export const useProductStore = defineStore('product', () => {
               }
           };
 
-  return { CreateProduct, getProducts, category_data, product_data, selectedProducts, selectedCount, selectProduct, getSingleProduct, singleProductItem, loading, getClassedProduct, getProductsByCategory  }
+  return { CreateProduct, getProducts, category_data, product_data, selectedProducts, selectedCount, selectProduct, getSingleProduct, singleProductItem, loading, getClassedProduct, getProductsByCategory, productbycategory_data  }
 })

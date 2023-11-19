@@ -24,5 +24,8 @@
 </template>
 <script setup>
 import { useCategoryStore } from "@/stores/categories";
+import { ref } from "vue";
 const categoryStore = useCategoryStore();
+const category = ref("")
+const product = ref("")
 </script>

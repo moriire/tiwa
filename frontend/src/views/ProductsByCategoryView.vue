@@ -1,16 +1,64 @@
 <template>
-  <div>{{ productStore.productbycategory_data }}</div>
-  
+<!-- All Products start -->
+<section class="trending-product section" style="margin-top: 12px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h2>{{ route.params.category }}</h2>
+                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have
+                            suffered alteration in some form.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-12"
+                 v-for="product in productStore.productbycategory_data" v-bind:key="product.id">
+                    <!-- Start Single Product -->
+                    <div class="single-product" >
+                        <div class="product-image">
+                            <img :src="product.images[0].img" alt="#">
+                            <span class="sale-tag" v-show="product.product.discount>0">-25%</span>
+                            <div class="button">
+                                <a type="button" @click="productStore.selectProduct(product)" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="category">{{ product.product.category.name }}</span>
+                            <h4 class="title">
+                                <RouterLink :to="{name: 'detail', params: {pk: product.id}}">{{ product.product.name }}</RouterLink>
+                            </h4>
+                            <!--ul class="review">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><span>5.0 Review(s)</span></li>
+                            </ul-->
+                            <div class="price"> 
+                                <span>&#8358;{{ product.product.discounted_price }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Product -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End All Product Area -->
 </template>
 <script setup>
 import { useProductStore } from "@/stores/product";
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
-import { ref } from "vue"
+import { ref, watchEffect} from "vue"
 const productStore = useProductStore();
 const route = useRoute();
 const routes = ref(route.params.category)
 onMounted(()=>{
-  productStore.getProductsByCategory(routes.value)
+  productStore.getProductsByCategory(routes.value);
+  console.log(productStore.productbycategory_data)
 })
+watch(()=>route.params.category, productStore.getProductsByCategory)
 </script>

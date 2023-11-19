@@ -1,13 +1,15 @@
 <script setup>
 import axios from "axios"
 import { useProductStore } from "@/stores/product";
-import { ref,reactive, onMounted, watchEffect, watch, onBeforeMount,  onServerPrefetch} from "vue";
+import { ref, onMounted, watchEffect, watch, onBeforeMount,  onServerPrefetch} from "vue";
 import { RouterLink, useRoute } from "vue-router";
+
 const BASE = import.meta.env.VITE_BACKEND_API_URL;
 const route = useRoute();
 const loading = ref(false);
 const singleProductItem = ref(null);
 const param = ref(route.params.pk);
+
         const getSingleProduct = async (b)=>{
             loading.value = true;
           //const auth = JSON.parse(localStorage.getItem("user"))
@@ -25,11 +27,10 @@ const param = ref(route.params.pk);
                 loading.value = false
               }
           };
-//onServerPrefetch(getSingleProduct()
-//)
-onMounted(getSingleProduct(param.value));
-
-//watchEffect(route.params, getSingleProduct())//, {immediate: true})
+          onMounted(getSingleProduct(param.value));
+watch(()=>route.params, getSingleProduct)
+const quantity = ref(1)
+const price = ref(0)
 </script>
 <template>
 
@@ -39,14 +40,14 @@ onMounted(getSingleProduct(param.value));
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Single Product</h1>
+                        <h1 class="page-title">{{ singleProductItem.product.category.name }}</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
                         <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
                         <li><a href="index.html">Shop</a></li>
-                        <li>Single Product</li>
+                        <li>{{ singleProductItem.product.name }}</li>
                     </ul>
                 </div>
             </div>
@@ -58,7 +59,7 @@ onMounted(getSingleProduct(param.value));
 
         <div class="preloader-inner">
             <div class="preloader-icon">
-                <span></span>{{ loading }}
+                <span></span>
                 <span></span>
             </div>
         </div>
@@ -85,30 +86,28 @@ onMounted(getSingleProduct(param.value));
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="product-info" >
                             <h2 class="title">{{ singleProductItem.product.name }}</h2>
-                            <p class="category"><i class="lni lni-tag"></i> Drones:<a href="javascript:void(0)">{{ singleProductItem }}</a></p>
+                            <p class="category"><i class="lni lni-tag"></i> {{ singleProductItem.product.category.name }}:<a href="javascript:void(0)">{{ singleProductItem.product.category.name }}</a></p>
                             <h3 class="price">&#8358;{{ singleProductItem.product.discounted_price }}<span>&#8358; {{ singleProductItem.product.price }} </span></h3>
                             <p class="info-text">{{ singleProductItem.product.desc }}.</p>
                             <div class="row">
-                                <div class="col-lg-8 col-md-8 col-12">
-                                    <div class="form-group">
-                                        <label for="color">Battery capacity</label>
-                                        <select class="form-control" id="color">
-                                            <option>5100 mAh</option>
-                                            <option>6200 mAh</option>
-                                            <option>8000 mAh</option>
-                                        </select>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                <div class="form-group">
+                                        <label for="color">Amount</label>
+                                        <input type="number" :v-model="price" v-bind:value="singleProductItem.product.discounted_price" class="form-control" id="color" readonly >
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group quantity">
-                                        <label for="color">Quantity</label>
-                                        <select class="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
+                                        <label for="count">Quantity</label>
+                                        <input v-model="quantity" class="form-control" type="number" id="count" v-bind:min="1" v-bind:max="12" >
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group quantity">
+                                        <label for="total">Total</label>
+                                        <input class="form-control" id="total" type="number" readonly :value="quantity*price">
+                                        
                                     </div>
                                 </div>
                             </div>
