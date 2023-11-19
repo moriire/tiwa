@@ -15,7 +15,7 @@ DEBUG = not False
 
 ALLOWED_HOSTS = [
     "http://127.0.0.1",
-    "https://tiwa-backend.onrender.com"
+    "tiwa-backend.onrender.com"
     ]
 
 # Application definition
