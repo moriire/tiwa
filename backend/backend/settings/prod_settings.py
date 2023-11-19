@@ -167,7 +167,6 @@ MEDIA_ROOT = BASE_DIR /'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-     get("ALLOWED_ORIGINS"),
      "http://localhost:4173",
      "http://localhost:5173",
      "https://tiwa-frontend.onrender.com",
