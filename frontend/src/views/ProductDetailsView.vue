@@ -3,7 +3,7 @@ import axios from "axios"
 import { useProductStore } from "@/stores/product";
 import { ref,reactive, onMounted, watchEffect, watch, onBeforeMount,  onServerPrefetch} from "vue";
 import { RouterLink, useRoute } from "vue-router";
-
+const BASE = import.meta.env.VITE_BACKEND_API_URL;
 const route = useRoute();
 const loading = ref(false);
 const singleProductItem = ref(null);
@@ -12,7 +12,7 @@ const param = ref(route.params.pk);
             loading.value = true;
           //const auth = JSON.parse(localStorage.getItem("user"))
               try {
-                  const res = await axios.get(`http://127.0.0.1:8000/api/products/${b}/`)
+                  const res = await axios.get(`${BASE}/api/products/${b}/`)
                   singleProductItem.value = await res.data//,
                   //singleProductItem.images = await res.data.images,
                   //singleProductItem.category = await res.data.category
